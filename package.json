@@ -1,0 +1,30 @@
+{
+  "name": "titans-zoo-management",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "path": "^0.12.7",
+    "dotenv": "6.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node myapp.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuranchen/Titans-Zoo-Management.git"
+  },
+  "author": "Team Titans",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xuranchen/Titans-Zoo-Management/issues"
+  },
+  "homepage": "https://github.com/xuranchen/Titans-Zoo-Management#readme",
+  "engines": {
+    "node": "10.13.0"
+  }
+}
