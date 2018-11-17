@@ -26,18 +26,23 @@ exports.connect = function(){
 //0    user is admin
 //1    user is visitor
 //2    user is staff
-exports.verify_login = function(con, username, password) {
-  var request = "SELECT Password, UserType FROM User WHERE Username = '" + username + "'";
+exports.verify_login = function(con, username, password, callback) {
+  var request = "SELECT Password, UserType FROM User WHERE Email = '" + username + "'";
   con.query(request, function (err, result) {
     if (err) throw err;
+    if (!result.length){
+      console.log("invalid username")
+      return callback(-1);
+    }
     var pw_hash = result[0]["Password"];
     var userType = result[0]["UserType"];
     bcrypt.compare(password, pw_hash, function(err, res) {
       if (res){
-        console.log(userType);
-        return userType;
+        console.log("authenticated");
+        return callback(userType);
       } else {
-        return -1;
+        console.log("invalid password")
+        return callback(-1);
       }
     });
   });

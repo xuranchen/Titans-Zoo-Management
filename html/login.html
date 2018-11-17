@@ -9,12 +9,12 @@
 <body>
     <div class="main">
         <h1>Atlanta Zoo</h1>
-        <form>
+        <form action = '/', method = 'post'>
             Email <input type="text" name="email">
             <br><br>
             Password <input type="password" name="password">
             <br><br>
-            <button>Login</button>
+            <button onclick = 'verify_login()'>Login</button>
         </form>
         <button id = 'registrationButton' onclick = 'loadRegistration()'>Register</button>
     </div>
