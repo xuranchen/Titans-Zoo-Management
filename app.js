@@ -10,7 +10,7 @@ app.use(express.static('html'));
 app.use('/js', express.static('js'));
 
 var con = mysql.connect();
-mysql.verify_login(con, 'admin1', 'adminpassword');
+//mysql.verify_login(con, 'admin1', 'adminpassword');
 
 
 //loads home page
