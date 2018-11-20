@@ -26,7 +26,7 @@ app.post('/',urlencodedParser,  function(req, res) {
 
   mysql.verify_login(con, username, password, function(UserType){
       if (UserType == -1){
-        res.redirect(path.join(__dirname,'./html/login.html'))
+        res.redirect(req.get('referer'));
       } else if (UserType == 0){
         res.sendFile(path.join(__dirname,'./html/admin-index.html'));
       } else if (UserType == 1){
@@ -36,6 +36,50 @@ app.post('/',urlencodedParser,  function(req, res) {
       }
     });
   });
+
+app.get("/view_visitors", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/view-visitors.html'));
+});
+
+app.get("/view_shows", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/show-hist.html'));
+});
+
+app.get("/add_show", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/add-show.html'));
+});
+
+app.get("/view_staff", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/view-staff.html'));
+});
+
+app.get("/view_animals", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/animal-results.html'));
+});
+
+app.get("/search_exhibits", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
+});
+
+app.get("/search_shows", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/show-search.html'));
+});
+
+app.get("/search_animals", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/animal-search.html'));
+});
+
+app.get("/exhibit_history", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/exhibit-hist.html'));
+});
+
+app.get("/show_history", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/show-hist.html'));
+});
+
+app.get("/logout", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/login.html'));
+});
 
 //app.get('/register', function(req, res){
 //  res.sendFile(path.join(__dirname, './html/register.html'))

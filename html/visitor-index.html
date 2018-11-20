@@ -10,17 +10,29 @@
     <div class="main">
         <h1>Atlanta Zoo</h1>
         <div class="buttons">
-            <button>Search Exhibits</button>
+            <form action = '/search_exhibits' method = 'get'>
+                <button>Search Exhibits</button>
             <br>
-            <button>Search Shows</button>
+            </form>
+            <form action = '/search_shows' method = 'get'>
+                <button>Search Shows</button>
+            </form>
             <br>
-            <button>Search Animals</button>
+            <form action = '/search_animals' method = 'get'>
+                <button>Search Animals</button>
+            </form>
             <br>
-            <button>Exhibit History</button>
+            <form action = '/exhibit_history' method = 'get'>
+                <button>Exhibit History</button>
+            </form>
             <br>
-            <button>Show History</button>
+            <form action = '/show_history' method = 'get'>
+                <button>Show History</button>
+            </form>
             <br>
-            <button>Log Out</button>
+            <form action = '/logout' method = 'get'>
+                <button>Log Out</button>
+            </form>
         </div>
     </div>
     <script src="./js/main.js"></script>

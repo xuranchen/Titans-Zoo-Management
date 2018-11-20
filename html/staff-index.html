@@ -10,11 +10,17 @@
     <div class="main">
         <h1>Atlanta Zoo</h1>
         <div class="buttons">
-            <button>Search Animals</button>
+            <form action = '/search_animals' method = 'get'>
+                <button>Search Animals</button>
+            </form>
             <br>
-            <button>View Shows</button>
+            <form action = '/view_shows' method = 'get'>
+                <button>View Shows</button>
+            </form>
             <br>
-            <button>Log Out</button>
+            <form action = '/logout' method = 'get'>
+                <button>Log Out</button>
+            </form>
         </div>
     </div>
     <script src="./js/main.js"></script>
