@@ -9,17 +9,23 @@
 <body>
     <div class="main">
         <h1>Atlanta Zoo - Ehxibits</h1>
-        <form>
-            Name <input type="text" name="name">
-            <br><br>
-            Number of Animals Min:<input type="number" name="amin"> Max:<input type="number" name="amax">
-            <br><br>
-            Size Min:<input type="number" name="smin"> Max:<input type="number" name="smax">
-            <br><br>
-            Water Feature:<input type="checkbox" name="wfeature" value="WaterFeature">
-            <br><br>
-            <button>Search</button>
-        </form>
+        <div class="input">
+            <form>
+                Name <input type="text" name="name">
+                <br><br>
+                Number of Animals
+                <div class="detail">Min: <input type="number" name="amin"></div>
+                <div class="detail">Max: <input type="number" name="amax"></div>
+                <br>
+                Size
+                <div class="detail">Min: <input type="number" name="smin"></div>
+                <div class="detail">Max: <input type="number" name="smax"></div>
+                <br>
+                <div style="width: 100%;">Water Feature:<input type="checkbox" name="wfeature" value="WaterFeature"></div>
+                <br>
+                <button>Search</button>
+            </form>
+        </div>
     </div>
 
 
