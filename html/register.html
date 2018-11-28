@@ -10,7 +10,7 @@
     <div class="main">
         <h1>Atlanta Zoo - Register</h1>
         <div class="input">
-            <form>
+            <form action = '/register' method = 'post'>
                 Email <input type="text" name="email">
                 <br><br>
                 Username <input type="text" name="username">
@@ -19,9 +19,10 @@
                 <br><br>
                 Confirm Password <input type="password" name="password2">
                 <br><br>
-                <button>Register as Visitor</button>
+                <button type = "submit" name = "1">Register as Visitor</button>
                 <br>
-                <button>Register as Staff</button>
+                <button type = "submit" name = "2" onclick="return buttonClick(this)">Register as Staff</button>
+                <input type="hidden" name="clicked_button" id="clicked_button" onclick="return buttonClick(this)" value=""/>
             </form>
         </div>
     </div>

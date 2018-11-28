@@ -81,9 +81,9 @@ app.get("/logout", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/login.html'));
 });
 
-//app.get('/register', function(req, res){
-//  res.sendFile(path.join(__dirname, './html/register.html'))
-//});
+app.post('/register', function(req, res){
+ console.log("Post received")
+});
 
 //Starts application
 app.listen(3000, function () {
