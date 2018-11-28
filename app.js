@@ -38,10 +38,20 @@ app.post('/',urlencodedParser,  function(req, res) {
   });
 
 app.post('/register', urlencodedParser, function(req, res){
-  var username = req.body.email;
+  var username = req.body.username;
   var password = req.body.password;
   var email = req.body.email;
   var usertype = req.body.clicked_button;
+  mysql.register(con, username, email, password, parseInt(usertype), function(response) {
+    if (response == 0) {
+      console.log("registration success");
+      res.sendFile(path.join(__dirname,'./html/login.html'));
+    } else if (response == 1) {
+      //username already exists
+    } else if (response == 2) {
+      //email already exists
+    }
+  })
   console.log("Post received")
 });
 

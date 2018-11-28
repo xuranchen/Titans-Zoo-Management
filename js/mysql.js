@@ -74,7 +74,8 @@ exports.register = function(con, username, email, password, usertype, callback) 
   });
 
   bcrypt.hash(password, 10, function(err, hash) {
-    var regisiter_query = "INSERT INTO TABLE User (Username, Password, Email, Usertype) VALUES ('${username}', '${hash}', '${email}', '${usertype}');"
+    console.log(hash)
+    var regisiter_query = "INSERT INTO User (Username, Password, Email, Usertype) VALUES ('" + username + "', '" + hash + "', '" + email + "', '" + usertype + "');"
     con.query(regisiter_query, function (err, result) {
       if (err){
         throw err;
