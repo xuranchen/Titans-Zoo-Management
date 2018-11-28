@@ -9,7 +9,8 @@
 <body>
     <div class="main">
         <h1>Atlanta Zoo - Animals</h1>
-        <table>
+        <table class="sortable">
+          <thead>
             <tr>
                 <th>Name</th>
                 <th>Species</th>
@@ -17,6 +18,8 @@
                 <th>Age</th>
                 <th>Type</th>
             </tr>
+          </thead>
+          <tbody>
             <tr>
                 <!--dummy data; TO DELETE-->
                 <td>Nemo</td>
@@ -25,6 +28,7 @@
                 <td>1</td>
                 <td>Fish</td>
             </tr>
+          </tbody>
         </table>
         <br><br>
         <!--IF USER IS ADMIN - START-->
@@ -33,6 +37,8 @@
         <br>
         <button>Back to Search</button>
     </div>
+
+    <script src="./js/sorttable.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

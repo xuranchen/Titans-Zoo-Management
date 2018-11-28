@@ -9,20 +9,26 @@
 <body>
     <div class="main">
         <h1>View Visitors</h1>
-        <table style="width: 100%;">
+        <table class="sortable" style="width: 100%;">
+          <thead>
             <tr>
                 <th>Username</th>
                 <th>Email</th>
             </tr>
+          </thead>
+          <tbody>
             <tr>
                 <!--dummy data; TO DELETE-->
                 <td>John</td>
                 <td>john@mail.com</td>
             </tr>
+          </tbody>
         </table>
         <br>
         <button>Delete Visitor</button>
     </div>
+
+    <script src="./js/sorttable.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

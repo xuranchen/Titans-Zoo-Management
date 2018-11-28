@@ -9,20 +9,22 @@
 <body>
     <div class="main">
         <h1>Atlanta Zoo - Shows</h1>
-        <table style="width: 100%;">
-            <tr>
-                <th>Name</th>
-                <th>Exhibit</th>
-                <th>Date</th>
-                <th>Time</th>
-            </tr>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>Feed the Fish</td>
-                <td>Pacific</td>
-                <td>9/29/18</td>
-                <td>3:00 PM</td>
-            </tr>
+        <table class="sortable" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Exhibit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!--dummy data; TO DELETE-->
+                    <td>Feed the Fish</td>
+                    <td>9/20/18 9:00 AM</td>
+                    <td>Pacific</td>
+                </tr>
+            </tbody>
         </table>
         <br>
         <div class="buttons">
@@ -38,6 +40,8 @@
             <button>Back to Search</button>
         </div>
     </div>
+
+    <script src="./js/sorttable.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>
