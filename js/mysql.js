@@ -47,3 +47,41 @@ exports.verify_login = function(con, username, password, callback) {
     });
   });
 }
+
+//registers new user
+//
+//returns
+// 0    success
+// 1    username already exists
+// 2    email already exists
+exports.register = function(con, username, email, password, usertype, callback) {
+  var verify_email = "SELECT * FROM User WHERE Email = '" + email + "';";
+  var verify_username = "SELECT * FROM User WHERE Username = '" + username + "';";
+  con.query(verify_username, function (err, result) {
+    if (err) throw err;
+    if (result.length){
+      console.log("invalid username")
+      return callback(1);
+    }
+  }
+
+  con.query(verify_email, function (err, result) {
+    if (err) throw err;
+    if (result.length){
+      console.log("invalid email")
+      return callback(2);
+    }
+  }
+
+  bcrypt.hash(password, 10, function(err, hash) {
+    var regisiter_query = "INSERT INTO TABLE User (Username, Password, Email, Usertype) VALUES ('${username}', '${hash}', '${email}', '${usertype}');"
+    con.query(regisiter_query, function (err, result) {
+      if (err){
+        throw err;
+      } else {
+        return callback(0);
+      }
+    });
+  });
+
+}
