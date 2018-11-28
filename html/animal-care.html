@@ -10,18 +10,21 @@
     <div class="main">
         <h1>(Animal Name) Care Notes</h1>
         <br>
-        Species:
-        <br>
-        Age:
-        <br>
-        Exhibit:
-        <br>
-        Type:
+        <div class="group">
+            Species:
+            <div class="spacer"></div>
+            Age:
+        </div>
+        <div class="group">
+            Exhibit:
+            <div class="spacer"></div>
+            Type:
+        </div>
         <br><br>
-        <input type="text" name="note">
+        <textarea class="note" rows="50" cols="50" type="text" name="note"></textarea>
         <button>Log Notes</button>
         
-        <table style="width: 100%;">
+        <table>
             <tr>
                 <th>Staff Member</th>
                 <th>Note</th>

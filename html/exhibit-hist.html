@@ -9,29 +9,33 @@
 <body>
     <div class="main">
         <h1>Atlanta Zoo - Ehxibits</h1>
-        <form>
-            Name <input type="text" name="name">
-            <br><br>
-            Number of Visits Min:<input type="number" name="amin"> Max:<input type="number" name="amax">
-            <br><br>
-            Date: <input type="date" name="date">
-            <br><br>
-            <button>Search</button>
-            
-            <table style="width: 100%;">
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Number of Visits</th>
-                </tr>
-                <tr>
-                    <!--dummy data; TO DELETE-->
-                    <td>Pacific</td>
-                    <td>9/20/18 9:00 AM</td>
-                    <td>2</td>
-                </tr>
-            </table>
-        </form>
+        <div class="input">
+            <form>
+                Name <input type="text" name="name">
+                <br><br>
+                Number of Visits
+                <div class="detail">Min: <input type="number" name="amin"></div>
+                <div class="detail">Max: <input type="number" name="amax"></div>
+                <br>
+                Date: <input type="date" name="date">
+                <br><br>
+                <button>Search</button>
+            </form>
+        </div>
+        <br>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Number of Visits</th>
+            </tr>
+            <tr>
+                <!--dummy data; TO DELETE-->
+                <td>Pacific</td>
+                <td>9/20/18 9:00 AM</td>
+                <td>2</td>
+            </tr>
+        </table>
     </div>
 
 
