@@ -37,6 +37,14 @@ app.post('/',urlencodedParser,  function(req, res) {
     });
   });
 
+app.post('/register', urlencodedParser, function(req, res){
+  var username = req.body.email;
+  var password = req.body.password;
+  var email = req.body.email;
+  var usertype = req.body.clicked_button;
+  console.log("Post received")
+});
+
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/view-visitors.html'));
 });
@@ -79,10 +87,6 @@ app.get("/show_history", urlencodedParser,  function(req, res) {
 
 app.get("/logout", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/login.html'));
-});
-
-app.post('/register', function(req, res){
- console.log("Post received")
 });
 
 //Starts application

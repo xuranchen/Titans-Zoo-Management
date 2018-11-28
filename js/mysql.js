@@ -63,7 +63,7 @@ exports.register = function(con, username, email, password, usertype, callback) 
       console.log("invalid username")
       return callback(1);
     }
-  }
+  });
 
   con.query(verify_email, function (err, result) {
     if (err) throw err;
@@ -71,7 +71,7 @@ exports.register = function(con, username, email, password, usertype, callback) 
       console.log("invalid email")
       return callback(2);
     }
-  }
+  });
 
   bcrypt.hash(password, 10, function(err, hash) {
     var regisiter_query = "INSERT INTO TABLE User (Username, Password, Email, Usertype) VALUES ('${username}', '${hash}', '${email}', '${usertype}');"
