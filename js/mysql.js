@@ -7,10 +7,10 @@ require('dotenv').config({path: appDir + '\\.env'});
 //connects to georgia tech MySQL Server
 exports.connect = function(){
   var con = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_USERNAME
+    host: 'academic-mysql.cc.gatech.edu',
+    user: 'cs4400_group36',
+    password: 'ERubgnsI',
+    database: 'cs4400_group36'
   });
   con.connect(function(err) {
     if (err) throw err;

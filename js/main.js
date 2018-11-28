@@ -7,4 +7,8 @@ function verify_login(){
   
 }
 
+function buttonClick(theButton){
+  document.getElementById('clicked_button').value = theButton.name;
+  return true;
+}
 
