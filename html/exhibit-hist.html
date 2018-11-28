@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
+<script src="./js/sorttable.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Exhibit History</title>
@@ -8,7 +9,7 @@
 </head>
 <body>
     <div class="main">
-        <h1>Atlanta Zoo - Ehxibits</h1>
+        <h1>Atlanta Zoo - Exhibits</h1>
         <div class="input">
             <form>
                 Name <input type="text" name="name">
@@ -23,18 +24,22 @@
             </form>
         </div>
         <br>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Number of Visits</th>
-            </tr>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>Pacific</td>
-                <td>9/20/18 9:00 AM</td>
-                <td>2</td>
-            </tr>
+        <table class="sortable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Number of Visits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!--dummy data; TO DELETE-->
+                    <td>Pacific</td>
+                    <td>9/20/18 9:00 AM</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

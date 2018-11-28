@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
+<script src="./js/sorttable.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -8,7 +9,7 @@
 </head>
 <body>
     <div class="main">
-        <h1>Atlanta Zoo - Ehxibits</h1>
+        <h1>Atlanta Zoo - Exhibits</h1>
         <div class="input">
             <form>
                 Name <input type="text" name="name">
@@ -26,6 +27,32 @@
                 <button>Search</button>
             </form>
         </div>
+        <table class="sortable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>NumAnimals</th>
+                    <th>Water</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!--dummy data; TO DELETE-->
+                    <td>Pacific</td>
+                    <td>850</td>
+                    <td>30</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <!--dummy data; TO DELETE-->
+                    <td>Jungle</td>
+                    <td>600</td>
+                    <td>5</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 
