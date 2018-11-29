@@ -51,12 +51,21 @@ app.post('/register', urlencodedParser, function(req, res){
     } else if (response == 2) {
       //email already exists
     }
-  })
+  });
   console.log("Post received")
 });
 
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/view-visitors.html'));
+});
+
+app.get("/pull_visitors", urlencodedParser,  function(req, res) {
+    con.query('SELECT * FROM Visitor', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
 });
 
 app.get("/view_shows", urlencodedParser,  function(req, res) {

@@ -1,6 +1,15 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var res = "";
+        $(document).ready(function(){
+            $.get("/pull_visitors", function(data, status){
+                alert(JSON.stringify(data));
+            });
+        });
+    </script>
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
