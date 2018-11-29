@@ -7,6 +7,7 @@
         $(document).ready(function(){
             $.get("/pull_visitors", function(data, status){
                 alert(JSON.stringify(data));
+                res = data
             });
         });
     </script>

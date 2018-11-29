@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <title>Exhibit History</title>
     <link rel="stylesheet" href="./css/style.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var res = "";
+        $(document).ready(function(){
+            $.get("/pull_visitors", function(data, status){
+                alert(JSON.stringify(data));
+                res = data
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="main">
