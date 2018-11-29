@@ -4,17 +4,21 @@ const bcrypt = require('bcrypt');
 var appDir = path.dirname(require.main.filename);
 require('dotenv').config({path: appDir + '\\.env'});
 
+
+
 //connects to georgia tech MySQL Server
 exports.connect = function(){
   var con = mysql.createConnection({
-    host: 'academic-mysql.cc.gatech.edu',
-    user: 'cs4400_group36',
-    password: 'ERubgnsI',
-    database: 'cs4400_group36'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_USERNAME
   });
   con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
+    if (err) {
+      return null;
+    }
+    console.log("MySQL Connected!");
   });
   return con;
 };
@@ -27,22 +31,27 @@ exports.connect = function(){
 //1    user is visitor
 //2    user is staff
 exports.verify_login = function(con, username, password, callback) {
+
+
+
   var request = "SELECT Password, UserType FROM User WHERE Email = '" + username + "'";
   con.query(request, function (err, result) {
-    if (err) throw err;
+    if (err){
+      return callback(-1, err);
+    }
     if (!result.length){
       console.log("invalid username")
-      return callback(-1);
+      return callback(-1, null);
     }
     var pw_hash = result[0]["Password"];
     var userType = result[0]["UserType"];
     bcrypt.compare(password, pw_hash, function(err, res) {
       if (res){
         console.log("authenticated");
-        return callback(userType);
+        return callback(userType, null);
       } else {
         console.log("invalid password")
-        return callback(-1);
+        return callback(-1, null);
       }
     });
   });
@@ -52,33 +61,16 @@ exports.verify_login = function(con, username, password, callback) {
 //
 //returns
 // 0    success
-// 1    username already exists
-// 2    email already exists
+// 1    failure
 exports.register = function(con, username, email, password, usertype, callback) {
   var verify_email = "SELECT * FROM User WHERE Email = '" + email + "';";
   var verify_username = "SELECT * FROM User WHERE Username = '" + username + "';";
-  con.query(verify_username, function (err, result) {
-    if (err) throw err;
-    if (result.length){
-      console.log("invalid username")
-      return callback(1);
-    }
-  });
-
-  con.query(verify_email, function (err, result) {
-    if (err) throw err;
-    if (result.length){
-      console.log("invalid email")
-      return callback(2);
-    }
-  });
-
   bcrypt.hash(password, 10, function(err, hash) {
     console.log(hash)
     var regisiter_query = "INSERT INTO User (Username, Password, Email, Usertype) VALUES ('" + username + "', '" + hash + "', '" + email + "', '" + usertype + "');"
     con.query(regisiter_query, function (err, result) {
       if (err){
-        throw err;
+        return callback(1);
       } else {
         return callback(0);
       }
