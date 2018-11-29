@@ -12,7 +12,7 @@
                 // add visitors to table
                 var table = $("#visitors tr:last");
                 data.forEach((d) => {
-                    table.after("<tr><td>" + d.Username + "</td></tr>");
+                    table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
                 });
                 
             });
