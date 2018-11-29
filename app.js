@@ -94,6 +94,15 @@ app.get("/pull_visitors", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/pull_staff", urlencodedParser,  function(req, res) {
+    con.query('SELECT Username, Email FROM User WHERE UserType = 2', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
 app.get("/view_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-hist.html'));
 });
