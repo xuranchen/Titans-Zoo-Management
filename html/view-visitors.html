@@ -6,8 +6,15 @@
         var res = "";
         $(document).ready(function(){
             $.get("/pull_visitors", function(data, status){
-                alert(JSON.stringify(data));
-                res = data
+//                alert(JSON.stringify(data));
+                res = data;
+                console.log(data);
+                // add visitors to table
+                var table = $("#visitors tr:last");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Username + "</td></tr>");
+                });
+                
             });
         });
     </script>
@@ -19,26 +26,17 @@
 <body>
     <div class="main">
         <h1>View Visitors</h1>
-        <table class="sortable">
-          <thead>
+        <table id="visitors">
             <tr>
                 <th>Username</th>
                 <th>Email</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>John</td>
-                <td>john@mail.com</td>
-            </tr>
-          </tbody>
         </table>
         <br>
         <button>Delete Visitor</button>
     </div>
 
-    <script src="./js/sorttable.js"></script>
+<!--    <script src="./js/sorttable.js"></script>-->
     <script src="./js/main.js"></script>
 </body>
 </html>
