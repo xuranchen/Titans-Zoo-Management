@@ -120,6 +120,10 @@ app.get("/add_show", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/add-show.html'));
 });
 
+app.get("/add_animals", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/add-animal.html'));
+});
+
 app.get("/view_staff", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/view-staff.html'));
 });
@@ -135,6 +139,7 @@ app.get("/search_exhibits", urlencodedParser,  function(req, res) {
 app.get("/exhibit_results", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
 });
+
 
 app.get("/search_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-search.html'));
