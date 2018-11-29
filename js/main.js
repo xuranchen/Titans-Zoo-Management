@@ -12,3 +12,7 @@ function buttonClick(theButton){
   return true;
 }
 
+function loadExhibitResults(){
+  console.log('swapping to exhibit Results')
+  location.href = "./register.html";
+};

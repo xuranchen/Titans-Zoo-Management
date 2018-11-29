@@ -132,6 +132,10 @@ app.get("/search_exhibits", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
 
+app.get("/exhibit_results", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
+});
+
 app.get("/search_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-search.html'));
 });
