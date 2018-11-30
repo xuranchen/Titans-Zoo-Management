@@ -103,10 +103,10 @@ app.post("/exhibit_results", urlencodedParser, function(req, res) {
     if (dat == -1) {
       res.send("sql error")
     } else {
-      res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
       res.json(dat)
     }
   });
+  res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
 });
 
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
