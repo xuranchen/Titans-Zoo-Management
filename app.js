@@ -117,9 +117,9 @@ app.get("/pull_visitors", urlencodedParser,  function(req, res) {
 });
 
 app.get("/sort_visitors", urlencodedParser,  function(req, res) {
-    var column = req.query.column
-    console.log(req.query.column);
-    con.query('SELECT Username, Email FROM User WHERE UserType = 1 ORDER BY ' + column + ' DESC', function(err,rows) {
+    var column = req.query.column;
+    var order = req.query.order;
+    con.query('SELECT Username, Email FROM User WHERE UserType = 1 ORDER BY ' + column + ' ' + order, function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);

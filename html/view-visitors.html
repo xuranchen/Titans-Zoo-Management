@@ -18,7 +18,13 @@
             });
             $("#username").click(function(){
               var column = "Username";
-              var url= '/sort_visitors?column=' + column;
+              var order = document.getElementById("username").value;
+              if (order == "DESC") {
+                document.getElementById("username").value = "ASC";
+              } else {
+                document.getElementById("username").value = "DESC";
+              }
+              var url= '/sort_visitors?column=' + column + '&order=' + order;
               $.get(url, function(data, status){
                 res = data;
                 console.log(data);
@@ -32,7 +38,13 @@
             });
             $("#email").click(function(){
               var column = "Email";
-              var url= '/sort_visitors?column=' + column;
+              var order = document.getElementById("email").value;
+              if (order == "DESC") {
+                document.getElementById("email").value = "ASC";
+              } else {
+                document.getElementById("email").value = "DESC";
+              }
+              var url= '/sort_visitors?column=' + column + '&order=' + order;
               $.get(url, function(data, status){
                 res = data;
                 console.log(data);
@@ -57,8 +69,8 @@
         <h1>View Visitors</h1>
         <table id="visitors">
           <thead>
-              <th><button id="username">Username</button></th>
-              <th><button id="email">Email</button></th>
+              <th><button id="username" value="DESC">Username</button></th>
+              <th><button id="email" value="DESC">Email</button></th>
           </thead>
         </table>
         <br>
