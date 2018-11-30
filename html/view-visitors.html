@@ -16,46 +16,6 @@
                 });
 
             });
-            $("#username").click(function(){
-              var column = "Username";
-              var order = document.getElementById("username").value;
-              if (order == "DESC") {
-                document.getElementById("username").value = "ASC";
-              } else {
-                document.getElementById("username").value = "DESC";
-              }
-              var url= '/sort_visitors?column=' + column + '&order=' + order;
-              $.get(url, function(data, status){
-                res = data;
-                console.log(data);
-                // add visitors to table
-                $("#visitors").find("tr:gt(0)").remove();
-                var table = $("#visitors thead");
-                data.forEach((d) => {
-                    table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
-                });
-              });
-            });
-            $("#email").click(function(){
-              var column = "Email";
-              var order = document.getElementById("email").value;
-              if (order == "DESC") {
-                document.getElementById("email").value = "ASC";
-              } else {
-                document.getElementById("email").value = "DESC";
-              }
-              var url= '/sort_visitors?column=' + column + '&order=' + order;
-              $.get(url, function(data, status){
-                res = data;
-                console.log(data);
-                // add visitors to table
-                $("#visitors").find("tr:gt(0)").remove();
-                var table = $("#visitors thead");
-                data.forEach((d) => {
-                    table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
-                });
-              });
-            });
         });
     </script>
     <meta charset="UTF-8">
@@ -69,8 +29,10 @@
         <h1>View Visitors</h1>
         <table id="visitors">
           <thead>
-              <th><button id="username" value="DESC">Username</button></th>
-              <th><button id="email" value="DESC">Email</button></th>
+            <div class="sort">
+              <th><button name="Username" value="DESC" onclick="return sortVisitors(this)">Username</button></th>
+              <th><button name="Email" value="DESC" onclick="return sortVisitors(this)">Email</button></th>
+            </div>
           </thead>
         </table>
         <br>

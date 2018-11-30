@@ -4,7 +4,7 @@ function loadRegistration(){
 };
 
 function verify_login(){
-  
+
 }
 
 function buttonClick(theButton){
@@ -16,3 +16,24 @@ function loadExhibitResults(){
   console.log('swapping to exhibit Results')
   location.href = "./register.html";
 };
+
+function sortVisitors(theButton) {
+  var column = theButton.name;
+  var order = theButton.value;
+  if (order == "DESC") {
+    theButton.value = "ASC";
+  } else {
+    theButton.value = "DESC";
+  }
+  var url= '/sort_visitors?column=' + column + '&order=' + order;
+  $.get(url, function(data, status){
+    res = data;
+    console.log(data);
+    // add visitors to table
+    $("#visitors").find("tr:gt(0)").remove();
+    var table = $("#visitors thead");
+    data.forEach((d) => {
+        table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
+    });
+  });
+}
