@@ -137,7 +137,6 @@ table button:focus {
     position: relative;
     left: 95%;
     bottom: 6px;
-/*    float: right;*/
     width: 0;
     height: 0;
     border-left: 5px solid transparent;
@@ -149,7 +148,6 @@ table button:focus {
     position: relative;
     left: 95%;
     bottom: 3px;
-/*    float: right;*/
     width: 0;
     height: 0;
     border-left: 5px solid transparent;
@@ -161,4 +159,9 @@ i {
     float:left;
     font-size: 1.3em;
     color: black;
+    transition: color 0.3s;
+}
+
+i:hover {
+    color: darkgreen;
 }
