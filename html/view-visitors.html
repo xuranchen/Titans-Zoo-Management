@@ -10,7 +10,7 @@
                 res = data;
                 console.log(data);
                 // add visitors to table
-                var table = $("#visitors tr:last");
+                var table = $("#visitors thead");
                 data.forEach((d) => {
                     table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
                 });
@@ -23,8 +23,8 @@
                 res = data;
                 console.log(data);
                 // add visitors to table
-                $("#visitors tbody tr").remove();
-                var table = $("#visitors tr:last");
+                $("#visitors").find("tr:gt(0)").remove();
+                var table = $("#visitors thead");
                 data.forEach((d) => {
                     table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
                 });
@@ -37,8 +37,8 @@
                 res = data;
                 console.log(data);
                 // add visitors to table
-                $("#visitors tbody tr").remove();
-                var table = $("#visitors tr:last");
+                $("#visitors").find("tr:gt(0)").remove();
+                var table = $("#visitors thead");
                 data.forEach((d) => {
                     table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
                 });
@@ -57,15 +57,9 @@
         <h1>View Visitors</h1>
         <table id="visitors">
           <thead>
-            <tr>
-                <th><button id="username">Username</button></th>
-                <th><button id="email">Email</button></th>
-            </tr>
+              <th><button id="username">Username</button></th>
+              <th><button id="email">Email</button></th>
           </thead>
-          <tbody>
-            <tr>
-            </tr>
-          </tbody>
         </table>
         <br>
         <button>Delete Visitor</button>
