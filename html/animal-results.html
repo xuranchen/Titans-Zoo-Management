@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
     <div class="main">
+        <a href="#"><i class="fa fa-home"></i></a>
         <h1>Atlanta Zoo - Animals</h1>
-        <table class="sortable">
-          <thead>
+        <table>
             <tr>
                 <th>Name</th>
                 <th>Species</th>
@@ -18,8 +18,6 @@
                 <th>Age</th>
                 <th>Type</th>
             </tr>
-          </thead>
-          <tbody>
             <tr>
                 <!--dummy data; TO DELETE-->
                 <td>Nemo</td>
@@ -28,17 +26,15 @@
                 <td>1</td>
                 <td>Fish</td>
             </tr>
-          </tbody>
         </table>
         <br><br>
         <!--IF USER IS ADMIN - START-->
         <button>Remove Animal</button>
         <!-- IF USER IS ADMIN - END -->
         <br>
-        <button>Back to Search</button>
+        <a href="animal-search.html"><button>Back to Search</button></a>
     </div>
 
-    <script src="./js/sorttable.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

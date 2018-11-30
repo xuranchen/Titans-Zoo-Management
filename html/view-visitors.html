@@ -6,38 +6,38 @@
         var res = "";
         $(document).ready(function(){
             $.get("/pull_visitors", function(data, status){
-                alert(JSON.stringify(data));
+//                alert(JSON.stringify(data));
+                res = data;
+                console.log(data);
+                // add visitors to table
+                var table = $("#visitors tr:last");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
+                });
+                
             });
         });
     </script>
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
     <div class="main">
+        <a href="admin-index.html"><i class="fa fa-home"></i></a>
         <h1>View Visitors</h1>
-        <table class="sortable">
-          <thead>
+        <table id="visitors">
             <tr>
                 <th>Username</th>
                 <th>Email</th>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>John</td>
-                <td>john@mail.com</td>
-            </tr>
-          </tbody>
         </table>
         <br>
         <button>Delete Visitor</button>
     </div>
 
-    <script src="./js/sorttable.js"></script>
+<!--    <script src="./js/sorttable.js"></script>-->
     <script src="./js/main.js"></script>
 </body>
 </html>

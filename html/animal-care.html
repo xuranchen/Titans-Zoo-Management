@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
-
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
     <div class="main">
+        <a href="staff-index.html"><i class="fa fa-home"></i></a>
         <h1>(Animal Name) Care Notes</h1>
         <br>
         <div class="group">
@@ -24,26 +26,21 @@
         <textarea class="note" rows="50" cols="50" type="text" name="note"></textarea>
         <button>Log Notes</button>
 
-        <table class="sortable">
-          <thead>
+        <table>
             <tr>
                 <th>Staff Member</th>
                 <th>Note</th>
                 <th>Date</th>
             </tr>
-          </thead>
-          <tbody>
             <tr>
                 <!--dummy data; TO DELETE-->
                 <td>Ellen</td>
                 <td>Nemo swam well today</td>
                 <td>8/14/18 3:00 PM</td>
             </tr>
-          </tbody>
         </table>
     </div>
 
-    <script src="./js/sorttable.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

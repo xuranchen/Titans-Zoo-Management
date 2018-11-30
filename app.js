@@ -81,7 +81,7 @@ app.post('/register', urlencodedParser, function(req, res){
 
 });
 
-app.post("/search_exhibits", urlencodedParser, function(req, res) {
+app.post("/exhibit_results", urlencodedParser, function(req, res) {
   console.log("Exhibit Search Request Received");
   var name = req.body.name;
   var amin = req.body.amin;
@@ -108,7 +108,16 @@ app.get("/view_visitors", urlencodedParser,  function(req, res) {
 });
 
 app.get("/pull_visitors", urlencodedParser,  function(req, res) {
-    con.query('SELECT * FROM Visitor', function(err,rows) {
+    con.query('SELECT Username, Email FROM User WHERE UserType = 1', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
+app.get("/pull_staff", urlencodedParser,  function(req, res) {
+    con.query('SELECT Username, Email FROM User WHERE UserType = 2', function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
@@ -120,8 +129,21 @@ app.get("/view_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-hist.html'));
 });
 
+app.get("/pull_all_shows", urlencodedParser,  function(req, res) {
+    con.query('SELECT * FROM Animal_Show', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
 app.get("/add_show", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/add-show.html'));
+});
+
+app.get("/add_animals", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/add-animal.html'));
 });
 
 app.get("/view_staff", urlencodedParser,  function(req, res) {
@@ -135,6 +157,11 @@ app.get("/view_animals", urlencodedParser,  function(req, res) {
 app.get("/search_exhibits", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
+
+app.get("/exhibit_results", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
+});
+
 
 app.get("/search_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-search.html'));

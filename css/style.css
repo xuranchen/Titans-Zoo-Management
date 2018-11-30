@@ -43,10 +43,6 @@ table th, table td {
     padding: 5px;
 }
 
-table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
-    content: " \25B4\25BE"
-}
-
 .input {
     display: flex;
     width: 300px;
@@ -107,4 +103,10 @@ button:hover {
 table {
     width: 100%;
     margin-top: 15px;
+}
+
+i {
+    float:left;
+    font-size: 1.3em;
+    color: black;
 }
