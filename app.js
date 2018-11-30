@@ -116,6 +116,17 @@ app.get("/pull_visitors", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/sort_visitors", urlencodedParser,  function(req, res) {
+    var column = req.query.column
+    console.log(req.query.column);
+    con.query('SELECT Username, Email FROM User WHERE UserType = 1 ORDER BY ' + column + ' DESC', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
 app.get("/pull_staff", urlencodedParser,  function(req, res) {
     con.query('SELECT Username, Email FROM User WHERE UserType = 2', function(err,rows) {
         if (err) throw err;

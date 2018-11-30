@@ -14,7 +14,35 @@
                 data.forEach((d) => {
                     table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
                 });
-                
+
+            });
+            $("#username").click(function(){
+              var column = "Username";
+              var url= '/sort_visitors?column=' + column;
+              $.get(url, function(data, status){
+                res = data;
+                console.log(data);
+                // add visitors to table
+                $("#visitors tbody tr").remove();
+                var table = $("#visitors tr:last");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
+                });
+              });
+            });
+            $("#email").click(function(){
+              var column = "Email";
+              var url= '/sort_visitors?column=' + column;
+              $.get(url, function(data, status){
+                res = data;
+                console.log(data);
+                // add visitors to table
+                $("#visitors tbody tr").remove();
+                var table = $("#visitors tr:last");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
+                });
+              });
             });
         });
     </script>
@@ -28,10 +56,16 @@
         <a href="admin-index.html"><i class="fa fa-home"></i></a>
         <h1>View Visitors</h1>
         <table id="visitors">
+          <thead>
             <tr>
-                <th>Username</th>
-                <th>Email</th>
+                <th><button id="username">Username</button></th>
+                <th><button id="email">Email</button></th>
             </tr>
+          </thead>
+          <tbody>
+            <tr>
+            </tr>
+          </tbody>
         </table>
         <br>
         <button>Delete Visitor</button>
