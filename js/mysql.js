@@ -106,9 +106,11 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
     if (numMin != '' && numMax != '') {
       query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) BETWEEN '"+ numMin + "' AND '" + numMax + "';"
     } else if (numMin != '') {
-      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) <= '" + sizeMax +"';"
+      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) <= '" + numMax +"';"
     } else if (numMax != '') {
       query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) >= '" + numMin + "';"
+    } else {
+      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
     }
     con.query(query, function (err, result) {
       if (err){

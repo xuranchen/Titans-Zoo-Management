@@ -1,18 +1,39 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var res = "";
+        $(document).ready(function(){
+            $.get("/exhibit_results", function(data, status){
+  //                alert(JSON.stringify(data));
+                res = data;
+                console.log(data);
+                // add visitors to table
+                var table = $("#exhibitResults thead");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Name + "</td><td>" + d.Size + "</td><td>" + d.NumAnimals + "</td><td>" + d.Water_Feature + "</td></tr>");
+                });
+
+            });
+        });
+    </script>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Exhibit Results</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
     <div class="main">
         <a href="#"><i class="fa fa-home"></i></a>
-        <h1>Atlanta Zoo - Ehxibits</h1>
-        <table>
-            <tr>
-            </tr>
+        <h1>Atlanta Zoo - Exhibits</h1>
+        <table id="exhibitResults">
+            <thead>
+              <th><button name="Name" value="DESC" onclick="return sortVisitors(this)">Name</button></th>
+              <th><button name="Size" value="DESC" onclick="return sortVisitors(this)">Size</button></th>
+              <th><button name="NumAnimals" value="DESC" onclick="return sortVisitors(this)">NumAnimals</button></th>
+              <th><button name="Water_Feature" value="DESC" onclick="return sortVisitors(this)">Water Feature</button></th>
+            </thead>
         </table>
         <br>
         <a href="exhibit-search.html"><button>Back to Search</button></a>

@@ -106,6 +106,7 @@ app.post("/exhibit_results", urlencodedParser, function(req, res) {
       res.json(dat)
     }
   });
+  res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
 });
 
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
@@ -134,6 +135,17 @@ app.get("/sort_visitors", urlencodedParser,  function(req, res) {
 
 app.get("/pull_staff", urlencodedParser,  function(req, res) {
     con.query('SELECT Username, Email FROM User WHERE UserType = 2', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
+app.get("/sort_staff", urlencodedParser,  function(req, res) {
+    var column = req.query.column;
+    var order = req.query.order;
+    con.query('SELECT Username, Email FROM User WHERE UserType = 2 ORDER BY ' + column + ' ' + order, function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
