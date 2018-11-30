@@ -34,24 +34,25 @@ exports.verify_login = function(con, username, password, callback) {
 
 
 
-  var request = "SELECT Password, UserType FROM User WHERE Email = '" + username + "'";
+  var request = "SELECT Username, Password, UserType FROM User WHERE Email = '" + username + "'";
   con.query(request, function (err, result) {
     if (err){
-      return callback(-1, err);
+      return callback(-1, null, err);
     }
     if (!result.length){
       console.log("invalid username")
-      return callback(-1, null);
+      return callback(-1, null, null);
     }
     var pw_hash = result[0]["Password"];
     var userType = result[0]["UserType"];
+    var username = result[0]["Username"];
     bcrypt.compare(password, pw_hash, function(err, res) {
       if (res){
         console.log("authenticated");
-        return callback(userType, null);
+        return callback(userType, username, null);
       } else {
         console.log("invalid password")
-        return callback(-1, null);
+        return callback(-1, null, null);
       }
     });
   });
@@ -86,7 +87,6 @@ exports.register = function(con, username, email, password, usertype, callback) 
 // result if no erorr
 exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, water, callback) {
     var query = "SELECT * FROM Exhibit as e ";
-    console.log(water == '')
     if (sizeMin != '' && sizeMax != '') {
       query = query + "WHERE e.Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
     } else if (sizeMin != '') {
@@ -117,4 +117,18 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
         return callback(result);
       }
     });
+}
+
+//exhibit history
+//
+//returns
+// -1 if error
+// result if no erorr
+exports.search_exhibits_history = function(con, name, visitMin, visitMax, date, callback) {
+  query = "SELECT * FROM Exhibit_Visits"
+  if (name != '') {
+    query = query + "WHERE Name = '" + name + "'"
+  } else{
+    query = query + "WHERE True"
+  }
 }
