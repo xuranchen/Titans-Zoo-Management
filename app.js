@@ -15,6 +15,7 @@ app.use(validator());
 var api = express.Router();
 
 var con;
+var cur_user = null;
 while (con == null){
   console.log('attempting sql connection')
   con = mysql.connect();
@@ -33,16 +34,20 @@ app.post('/',urlencodedParser,  function(req, res) {
   var password = req.body.password;
   console.log("post received: Username: %s Password: %s", username, password);
 
-  mysql.verify_login(con, username, password, function(UserType, err){
+  mysql.verify_login(con, username, password, function(UserType, username, err){
       if (err) {
         res.redirect(req.get('referer'));
       } else if (UserType == -1){
         res.redirect(req.get('referer'));
       } else if (UserType == 0){
+        cur_user = username;
         res.sendFile(path.join(__dirname,'./html/admin-index.html'));
       } else if (UserType == 1){
+        cur_user = username;
+        console.log(cur_user)
         res.sendFile(path.join(__dirname,'./html/visitor-index.html'));
       } else if (UserType == 2){
+        cur_user = username;
         res.sendFile(path.join(__dirname,'./html/staff-index.html'));
       }
     });
