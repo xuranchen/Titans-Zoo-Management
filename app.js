@@ -190,6 +190,10 @@ app.get("/show_history", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-hist.html'));
 });
 
+app.get("/staff_show_history", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/staff-show-hist.html'));
+});
+
 app.get("/logout", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/login.html'));
 });
