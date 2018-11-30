@@ -76,5 +76,45 @@ exports.register = function(con, username, email, password, usertype, callback) 
       }
     });
   });
+}
 
+
+//exhibit search_shows
+//
+//returns
+// -1 if error
+// result if no erorr
+exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, water, callback) {
+    var query = "SELECT * FROM Exhibit as e ";
+    console.log(water == '')
+    if (sizeMin != '' && sizeMax != '') {
+      query = query + "WHERE e.Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
+    } else if (sizeMin != '') {
+      query = query + "WHERE e.Size <= '" + sizeMax +"' "
+    } else if (sizeMax != '') {
+      query = query + "WHERE e.Size >= '" + sizeMin + "' "
+    } else {
+      query = query + "WHERE TRUE "
+    }
+
+    if (name != '') {
+      query = query + "AND e.Name = '" + name +"' "
+    }
+    if (water != '') {
+      query = query + "AND e.Water_Feature = '" + water + "' "
+    }
+    if (numMin != '' && numMax != '') {
+      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) BETWEEN '"+ numMin + "' AND '" + numMax + "';"
+    } else if (numMin != '') {
+      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) <= '" + sizeMax +"';"
+    } else if (numMax != '') {
+      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) >= '" + numMin + "';"
+    }
+    con.query(query, function (err, result) {
+      if (err){
+        return callback(-1);
+      } else {
+        return callback(result);
+      }
+    });
 }

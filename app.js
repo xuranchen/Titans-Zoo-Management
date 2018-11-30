@@ -81,6 +81,28 @@ app.post('/register', urlencodedParser, function(req, res){
 
 });
 
+app.post("/search_exhibits", urlencodedParser, function(req, res) {
+  console.log("Exhibit Search Request Received");
+  var name = req.body.name;
+  var amin = req.body.amin;
+  var amax = req.body.amax;
+  var smin = req.body.smin;
+  var smax = req.body.smax;
+  var water
+  if (req.body.wfeature == "WaterFeature"){
+    water = 1;
+  } else {
+    water = 0;
+  }
+  mysql.search_exhibits(con, name, amin, amax, smin, smax, water, function(dat) {
+    if (dat == -1) {
+      res.send("sql error")
+    } else {
+      res.json(dat)
+    }
+  });
+});
+
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/view-visitors.html'));
 });
