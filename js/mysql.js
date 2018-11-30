@@ -124,11 +124,29 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
 //returns
 // -1 if error
 // result if no erorr
-exports.search_exhibits_history = function(con, name, visitMin, visitMax, date, callback) {
-  query = "SELECT * FROM Exhibit_Visits"
+exports.search_exhibits_history = function(con, cur_user, name, visitMin, visitMax, date, callback) {
+  query = "SELECT * FROM Exhibit_Visits WHERE Visitor = '" + cur_user + "' ";
   if (name != '') {
-    query = query + "WHERE Name = '" + name + "'"
-  } else{
-    query = query + "WHERE True"
+    query = query + "AND WHERE Name = '" + name + "'"
   }
+  if (date != '') {
+    query = query + "AND WHERE DateTime LIKE '" + date + "%'"
+  }
+  query = query + "GROUP BY Name"
+
+  if (visitMin != '' && visitMax != '') {
+    query = query + "Having Count(*) BETWEEN " + visitMin + " and " + VisitMax + ";"
+  } else if (visitMin != '') {
+    query = query + "Having Count(*) >= " + visitMin + ";";
+  } else if (visitMax != '') {
+    query = query + "Having Count(*) <= " + visitMax + ";";
+  }
+  con.query(query, function (err, result) {
+    if (err){
+      return callback(-1);
+    } else {
+      return callback(result);
+    }
+  });
+  
 }
