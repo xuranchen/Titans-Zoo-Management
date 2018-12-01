@@ -149,6 +149,18 @@ app.get("/search_visitors/:query", urlencodedParser,  function(req, res) {
   });
 });
 
+app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
+  console.log("Visitor deletion Request Received");
+  var name = req.params.query;
+  console.log(name)
+  con.query('DELETE FROM User WHERE Username = ?', [name] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
+
 app.get("/sort_visitors", urlencodedParser,  function(req, res) {
     var column = req.query.column;
     var order = req.query.order;

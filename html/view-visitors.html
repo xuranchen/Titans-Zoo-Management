@@ -35,6 +35,20 @@
                     });
             });
         };
+
+        function deleteVisitor(){
+            console.log('Delete Visitor')
+            let name = document.getElementById("delete-name").value;
+            $.post("/delete_visitors/" + name)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    location.reload();
+            });
+        };
     </script>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -57,7 +71,8 @@
           </thead>
         </table>
         <br>
-        <button>Delete Visitor</button>
+        <input id="delete-name" type="text" name="delete-name">
+        <button onclick = "deleteVisitor()">Delete Visitor</button>
     </div>
 
 <!--    <script src="./js/sorttable.js"></script>-->
