@@ -234,8 +234,8 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[1];
   var date = params[2];
 
-  console.log(name, exhibit, date);
-  con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Name = ? AND Exhibit = ?', [name,  exhibit] , function(err,rows) {
+  console.log("name ", name, "exhibit " ,exhibit, "date ", date);
+  con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Name = ? AND Exhibit = ? AND DateTime = ?%', [name,  exhibit, date] , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
