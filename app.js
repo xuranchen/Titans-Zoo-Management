@@ -467,6 +467,10 @@ app.get("/show_history", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-hist.html'));
 });
 
+app.get("/show_history_visitor", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/show-hist-visitor.html'));
+});
+
 app.get("/staff_show_history", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/staff-show-hist.html'));
 });
