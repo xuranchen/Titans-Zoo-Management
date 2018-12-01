@@ -462,6 +462,14 @@ app.get("/view_animals", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/animal-results.html'));
 });
 
+app.get("/view_animals_visitor", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/animal-results-visitor.html'));
+});
+
+app.get("/view_animals_staff", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/animal-results-staff.html'));
+});
+
 app.get("/search_exhibits", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
@@ -485,6 +493,10 @@ app.get("/exhibit_history", urlencodedParser,  function(req, res) {
 
 app.get("/show_history", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-hist.html'));
+});
+
+app.get("/show_history_visitor", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/show-hist-visitor.html'));
 });
 
 app.get("/staff_show_history", urlencodedParser,  function(req, res) {
