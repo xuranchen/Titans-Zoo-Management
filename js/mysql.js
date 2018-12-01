@@ -1,4 +1,4 @@
-var mysql = require('mysql')
+  var mysql = require('mysql')
 var path = require('path')
 const bcrypt = require('bcrypt');
 var appDir = path.dirname(require.main.filename);
