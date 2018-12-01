@@ -16,6 +16,24 @@
 
             });
         });
+
+        function searchForStaff(){
+            console.log('Searching for staff')
+            let name = document.getElementById("search-name").value;
+            $.get("/search_staff/" + name)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    $("#staff tr:not(:first)").remove();
+                    var table = $("#staff thead");
+                    data.forEach((d) => {
+                        table.after("<tr><td>" + d.Username + "</td><td>" + d.Email + "</td></tr>");
+                    });
+            });
+        };
     </script>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -24,6 +42,8 @@
 </head>
 <body>
     <div class="main">
+            <input id="search-name" type="text" name="name">
+            <button onclick="searchForStaff()">Search For Staff</button>
         <a href="admin-index.html"><i class="fa fa-home"></i></a>
         <h1>View Staff</h1>
         <table id="staff">

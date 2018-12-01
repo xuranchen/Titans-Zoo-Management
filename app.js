@@ -169,6 +169,18 @@ app.get("/pull_staff", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/search_staff/:query", urlencodedParser,  function(req, res) {
+  console.log("Staff search Request Received");
+  var name = req.params.query;
+  console.log(name)
+  con.query('SELECT Username, Email FROM User WHERE UserType = "2" AND Username = ?', [name] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
+
 app.get("/sort_staff", urlencodedParser,  function(req, res) {
     var column = req.query.column;
     var order = req.query.order;
