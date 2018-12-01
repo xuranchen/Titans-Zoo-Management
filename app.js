@@ -219,7 +219,6 @@ app.get("/pull_visitors", urlencodedParser,  function(req, res) {
 app.get("/search_visitors/:query", urlencodedParser,  function(req, res) {
   console.log("Visitor search Request Received");
   var name = req.params.query;
-  console.log(name)
   con.query('SELECT Username, Email FROM User WHERE UserType = "1" AND Username = ?', [name] , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
@@ -228,12 +227,15 @@ app.get("/search_visitors/:query", urlencodedParser,  function(req, res) {
   });
 });
 
-app.get("/search_shows", urlencodedParser,  function(req, res) {
+app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   console.log("Show search Request Received");
-  var name = req.body.name;
-  var exhibit = req.body.exhibit;
-  var date = req.body.date;
-  con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Name = ? AND DateTime = ? AND Exhibit = ?', [name, date, exhibit] , function(err,rows) {
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var exhibit = params[1];
+  var date = params[2];
+
+  console.log(name, exhibit, date);
+  con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Name = ? AND Exhibit = ?', [name,  exhibit] , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
@@ -363,7 +365,7 @@ app.get("/pull_shows/", urlencodedParser,  function(req, res) {
 });
 
 app.get("/pull_all_shows", urlencodedParser,  function(req, res) {
-    con.query('SELECT * FROM Animal_Show', function(err,rows) {
+    con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show', function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
