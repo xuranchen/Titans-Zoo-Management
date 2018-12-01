@@ -8,18 +8,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <script>
-$(document).ready(function(){
-        $.get("/pull_Exhibits", function(data, status){
-//                alert(JSON.stringify(data));
-        res = data;
-        console.log(data);
-        // add Exhibits to a Select
-        var select = document.getElementById("exhibitSelect")
-        data.forEach((d) => {
-        select.options[select.options.length] = new Option(d.Exhibit, d.Exhibit);
-        });
-    });
-});
+// $(document).ready(function(){
+//         $.get("/pull_Exhibits", function(data, status){
+// //                alert(JSON.stringify(data));
+//         res = data;
+//         console.log(data);
+//         // add Exhibits to a Select
+//         var select = document.getElementById("exhibitSelect")
+//         data.forEach((d) => {
+//         select.options[select.options.length] = new Option(d.Exhibit, d.Exhibit);
+//         });
+//     });
+// });
 </script>
 <body>
     <div class="main">
@@ -33,6 +33,11 @@ $(document).ready(function(){
                 <br><br>
                 Exhibit:
                 <select id = "exhibitSelect" name = "exhibitSelect">
+                        <option value="Birds">Birds</option>
+                        <option value="Mountainous">Mountainous</option>
+                        <option value="Jungle">Jungle</option>
+                        <option value="Sahara">Sahara</option>
+                        <option value="Pacific">Pacific</option>
                 </select>
                 <br><br>
                 Type: <input type="text" name="type">
