@@ -5,12 +5,45 @@
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
+<script>
+        var res = "";
+        $(document).ready(function(){
+            $.get("/pull_animals", function(data, status){
+//                alert(JSON.stringify(data));
+                res = data;
+                console.log(data);
+                // add visitors to table
+                var table = $("#animalList thead");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Name + "</td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + d.Type + "</td></tr>");
+                });
+
+            });
+        });
+        
+    function deleteAnimal(){
+            console.log('Delete Animal')
+            let name = document.getElementById("deleteAnimal").value;
+            $.post("/delete_animal/" + name)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    location.reload();
+            });
+        };
+</script>
 <body>
     <div class="main">
         <a href="#"><i class="fa fa-home"></i></a>
         <h1>Atlanta Zoo - Animals</h1>
-        <table>
+        <table id = "animalList">
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Species</th>
@@ -18,18 +51,11 @@
                 <th>Age</th>
                 <th>Type</th>
             </tr>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>Nemo</td>
-                <td>Clownfish</td>
-                <td>Pacific</td>
-                <td>1</td>
-                <td>Fish</td>
-            </tr>
+        </thead>
         </table>
-        <br><br>
+        <input type="text" name="deleteAnimal" id = "deleteAnimal">
+        <button id = "delete" name = "delete" onclick = "deleteAnimal()">Remove Animal</button>
         <!--IF USER IS ADMIN - START-->
-        <button>Remove Animal</button>
         <!-- IF USER IS ADMIN - END -->
         <br>
         <a href="animal-search.html"><button>Back to Search</button></a>
