@@ -26,7 +26,7 @@
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     $("#staff tr:not(:first)").remove();
                     var table = $("#staff thead");
                     data.forEach((d) => {
@@ -43,7 +43,7 @@
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     location.reload();
             });
         };
@@ -55,14 +55,14 @@
 </head>
 <body>
     <div class="main">
-            <input id="search-name" type="text" name="name">
-            <button onclick="searchForStaff()">Search For Staff</button>
         <a href="admin-index.html"><i class="fa fa-home"></i></a>
         <h1>View Staff</h1>
+        <input id="search-name" type="text" name="name">
+        <button onclick="searchForStaff()">Search For Staff</button>
         <table id="staff">
           <thead>
-              <th><button name="Username" value="DESC" onclick="return sortStaff(this)">Username</button></th>
-              <th><button name="Email" value="DESC" onclick="return sortStaff(this)">Email</button></th>
+              <th><button name="Username" value="DESC" onclick="return sortStaff(this)">Username</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+              <th><button name="Email" value="DESC" onclick="return sortStaff(this)">Email</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
           </thead>
         </table>
         <br>
