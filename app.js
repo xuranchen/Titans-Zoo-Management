@@ -122,6 +122,43 @@ app.post('/addAnimal', urlencodedParser, function(req, res){
 
 });
 
+app.post('/addShow', urlencodedParser, function(req, res){
+  console.log("Add Show Request received")
+  var name = req.body.name;
+  var exhibit = req.body.exhibitSelect;
+  var staff = req.body.staffSelect;
+  var dateTime = req.body.date + " " +req.body.time;
+  console.log(dateTime);
+
+  req.checkBody('name', 'name cannot be empty').notEmpty();
+  req.checkBody('exhibitSelect', 'exhibit cannot be empty').notEmpty();
+  req.checkBody('staffSelect', 'staff cannot be empty').notEmpty();
+  req.checkBody('date', 'date cannot be empty').notEmpty();
+  req.checkBody('time', 'time cannot be empty').notEmpty();
+
+
+  var pageErrors = req.validationErrors();
+
+  if(!pageErrors){
+    console.log("no errors");
+    mysql.addShow(con, name, exhibit, staff, dateTime, function(response, err) {
+      if (err) {
+        res.redirect(req.get('referer'));
+      } else if (response == 0) {
+        console.log("Add Show success");
+        res.sendFile(path.join(__dirname,'./html/add-show.html'));
+      } else if (response == 1) {
+        console.log("Add show attempt failed")
+        res.redirect(req.get('referer'));
+      }
+    });
+  } else {
+    console.log("invalid input")
+    res.redirect(req.get('referer'));
+  }
+
+});
+
 app.post("/exhibit_results", urlencodedParser, function(req, res) {
   console.log("Exhibit Search Request Received");
   var name = req.body.name;
@@ -230,6 +267,15 @@ app.get("/pull_staff", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/pull_staffName", urlencodedParser,  function(req, res) {
+  con.query('SELECT DISTINCT Username FROM User WHERE UserType = 2', function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
+
 app.get("/search_staff/:query", urlencodedParser,  function(req, res) {
   console.log("Staff search Request Received");
   var name = req.params.query;
@@ -263,7 +309,6 @@ app.get("/pull_shows/", urlencodedParser,  function(req, res) {
   var name = req.body.name;
   var exhibit = req.body.exhibit;
   var date = req.body.date;
-  console.log("???????")
   console.log(name)
   console.log(exhibit)
   console.log(date)

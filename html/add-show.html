@@ -5,27 +5,51 @@
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </head>
+<script>
+    $(document).ready(function(){
+    $.get("/pull_Exhibits", function(data, status){
+//                alert(JSON.stringify(data));
+        res = data;
+        console.log(data);
+        // add Exhibits to a Select
+        var select = document.getElementById("exhibitSelect")
+        data.forEach((d) => {
+        select.options[select.options.length] = new Option(d.Exhibit, d.Exhibit);
+        });
+    });
+
+    $.get("/pull_StaffName", function(data, status){
+//                alert(JSON.stringify(data));
+        res = data;
+        console.log(data);
+        // add Exhibits to a Select
+        var select = document.getElementById("staffSelect")
+        data.forEach((d) => {
+        select.options[select.options.length] = new Option(d.Username, d.Username);
+        });
+    });
+
+});
+
+
+</script>
 <body>
     <div class="main">
         <a href="admin-index.html"><i class="fa fa-home"></i></a>
         <h1>Add Show</h1>
         <div class="input">
-            <form>
+            <form action = '/addShow' method = "post">
                 Name: <input type="text" name="name">
                 <br><br>
                 Exhibit: 
-                <select>
-                    <option value="exhibit-name">Exhibit1</option>
-                    <option value="exhibit-name">Exhibit2</option>
-                    <option value="exhibit-name">Exhibit3</option>
+                <select id = "exhibitSelect" name = "exhibitSelect">
                 </select>
                 <br><br>
                 Staff: 
-                <select>
-                    <option value="staff-name">Staff1</option>
-                    <option value="staff-name">Staff2</option>
-                    <option value="staff-name">Staff3</option>
+                <select id = "staffSelect" name = "staffSelect">
                 </select>
                 <br><br>
                 Date: <input type="date" name="date">

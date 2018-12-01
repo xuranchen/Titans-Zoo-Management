@@ -114,6 +114,28 @@ exports.addAnimal = function(con, name, age, exhibitSelect, type, species , call
     });
 }
 
+exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
+  console.log("attempting to add")
+  var checker_query = "SELECT * FROM Animal_Show WHERE Host = ? AND DateTime = ?";
+  var register_query = "INSERT INTO Animal_Show (Name, DateTime, Exhibit, Host) VALUES ('" + name + "', '" + dateTime + "', '" + exhibit + "', '" + staff + "');";
+  console.log(register_query)
+  con.query(checker_query, [staff, dateTime], function (err, result) {
+    console.log(result)
+    if (result.length == 0) {
+      con.query(register_query, function (err, result2) {
+        if (err){
+          return callback(1);
+        } else {
+          return callback(0);
+        }
+      });
+    }
+    if (err) {
+      return callback(1);
+    }
+  });
+}
+
 //exhibit search_shows
 //
 //returns
