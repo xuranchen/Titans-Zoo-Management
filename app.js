@@ -235,17 +235,62 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[1];
   var date = params[2];
 
-  var query = "SELECT Name, DateTime, Exhibit, FROM Animal_Show WHERE TRUE"
-
+  var query = "SELECT Name, DateTime, Exhibit, FROM Animal_Show WHERE TRUE "
   if (name != '') {
     query = query + "AND Name = '" + name + "' "
   }
   if (exhibit != '') {
     query = query + "AND Exhibit = '" + exhibit + "' "
   }
-  if (type != '') {
+  if (date != '') {
     query = query + "AND DateTime = '" + date + "' "
   }
+  console.log("query =" + query);
+  con.query(query , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
+  
+
+app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
+  console.log("Show search Request Received");
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var species = params[1];
+  var min = params[2];
+  var max = params[3];
+  var exhibit = params[4];
+  var type = params[5];
+
+  var query = "SELECT Name, Species, Exhibit, Age, Type FROM Animal "
+
+
+  if (min != '' && max != '') {
+    query = query + "WHERE Age BETWEEN '" + min + "' AND '"+max+"' "
+  } else if (min != '') {
+    query = query + "WHERE Age <= '" + max +"' "
+  } else if (max != '') {
+    query = query + "WHERE Age >= '" + min + "' "
+  } else {
+    query = query + "WHERE TRUE "
+  }
+
+  if (name != '') {
+    query = query + "AND Name = '" + name + "' "
+  }
+  if (species != '') {
+    query = query + "AND Species = '" + species + "' "
+  }
+  if (exhibit != '') {
+    query = query + "AND Exhibit = '" + exhibit + "' "
+  }
+  if (type != '') {
+    query = query + "AND Type = '" + type + "' "
+  }
+  
   console.log("query =" + query);
   con.query(query , function(err,rows) {
       if (err) throw err;
