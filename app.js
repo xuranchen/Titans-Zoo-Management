@@ -91,20 +91,26 @@ app.post('/addAnimal', urlencodedParser, function(req, res){
   var name = req.body.name;
   var age = req.body.age;
   var exhibitSelect = req.body.exhibitSelect;
-  var type = req.body.type;
+  var genus = req.body.typeSelect;
   var species = req.body.species;
+
+  console.log("name" + name)
+  console.log("age" + age)
+  console.log("exhibitSelect" + exhibitSelect)
+  console.log("genus" + genus)
+  console.log("species" + species)
 
   req.checkBody('name', 'name cannot be empty').notEmpty();
   req.checkBody('species', 'species cannot be empty').notEmpty();
   req.checkBody('age', 'age cannot be empty').notEmpty();
   req.checkBody('exhibitSelect', 'exhibitSelect cannot be empty').notEmpty();
-  req.checkBody('type', 'type cannot be empty').notEmpty();
 
 
   var pageErrors = req.validationErrors();
-
+  console.log(pageErrors);
+  
   if(!pageErrors){
-    mysql.addAnimal(con, name, age, exhibitSelect, type, species, function(response, err) {
+    mysql.addAnimal(con, name, age, exhibitSelect, genus, species, function(response, err) {
       if (err) {
         res.redirect(req.get('referer'));
       } else if (response == 0) {

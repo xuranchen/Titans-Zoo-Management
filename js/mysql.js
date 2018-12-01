@@ -101,9 +101,9 @@ exports.register = function(con, username, email, password, usertype, callback) 
 }
 
 
-exports.addAnimal = function(con, name, age, exhibitSelect, type, species , callback) {
+exports.addAnimal = function(con, name, age, exhibit, genus, species , callback) {
     console.log("attempting to add")
-    var register_query = "INSERT INTO Animal (Name, Age, Exhibit, Type, Species) VALUES ('" + name + "', '" + age + "', '" + exhibitSelect + "', '" + type + "', '" + species + "');"
+    var register_query = "INSERT INTO Animal (Name, Age, Exhibit, Genus, Species) VALUES ('" + name + "', '" + age + "', '" + exhibit + "', '" + genus + "', '" + species + "');"
     console.log(register_query)
     con.query(register_query, function (err, result) {
       if (err){
