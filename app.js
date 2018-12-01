@@ -147,19 +147,18 @@ app.post('/add_show', urlencodedParser, function(req, res){
 
   if(!pageErrors){
     console.log("no errors");
-    con.query('SELECT Username, Email FROM User WHERE UserType = "1"', function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows)
-  });
+  //   con.query('SELECT Username, Email FROM User WHERE UserType = "1"', function(err,rows) {
+  //     if (err) throw err;
+  //     console.log('Data received from Db:\n');
+  //     console.log(rows);
+  //     res.json(rows)
+  // });
     mysql.addShow(con, name, exhibit, staff, dateTime, function(response, err) {
       if (err) {
         res.redirect(req.get('referer'));
       } else if (response == 0) {
         console.log("Add Show success");
-        // res.sendFile(path.join(__dirname,'./html/add-show.html'));
-        res.sendFile(path.join(__dirname,'./html/login.html'));
+        res.sendFile(path.join(__dirname,'./html/add-show.html'));
       } else if (response == 1) {
         console.log("Add show attempt failed")
         res.redirect(req.get('referer'));
