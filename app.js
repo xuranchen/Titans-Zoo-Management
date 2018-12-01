@@ -434,6 +434,14 @@ app.get("/view_animals", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/animal-results.html'));
 });
 
+app.get("/view_animals_visitor", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/animal-results-visitor.html'));
+});
+
+app.get("/view_animals_staff", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/animal-results-staff.html'));
+});
+
 app.get("/search_exhibits", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
