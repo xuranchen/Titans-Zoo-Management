@@ -243,7 +243,7 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
     query = query + "AND Exhibit = '" + exhibit + "' "
   }
   if (date != '') {
-    query = query + "AND DateTime = '" + date + "' "
+    query = query + "AND DateTime LIKE '" + date + "%' "
   }
   console.log("query =" + query);
   con.query(query , function(err,rows) {
