@@ -241,17 +241,17 @@ app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
   });
 });
 
-// app.post("/delete_animal/:query", urlencodedParser,  function(req, res) {
-//   console.log("Animal deletion Request Received");
-//   var name = req.params.query;
-//   console.log(name)
-//   con.query('DELETE FROM Animal WHERE Usertype = 1 AND Username = ?', [name] , function(err,rows) {
-//       if (err) throw err;
-//       console.log('Data received from Db:\n');
-//       console.log(rows);
-//       res.json(rows)
-//   });
-// });
+app.post("/delete_animal/:query", urlencodedParser,  function(req, res) {
+  console.log("Animal deletion Request Received");
+  var name = req.params.query;
+  console.log(name)
+  con.query('DELETE FROM Animal WHERE Name = ?', [name] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
 
 app.post("/delete_Show/:query", urlencodedParser,  function(req, res) {
   console.log("Show deletion Request Received");
