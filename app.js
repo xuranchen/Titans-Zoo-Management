@@ -86,6 +86,42 @@ app.post('/register', urlencodedParser, function(req, res){
 
 });
 
+app.post('/addAnimal', urlencodedParser, function(req, res){
+  console.log("Add Animal Request received")
+  var name = req.body.name;
+  var age = req.body.age;
+  var exhibitSelect = req.body.exhibitSelect;
+  var type = req.body.type;
+  var species = req.body.species;
+
+  req.checkBody('name', 'name cannot be empty').notEmpty();
+  req.checkBody('species', 'species cannot be empty').notEmpty();
+  req.checkBody('age', 'age cannot be empty').notEmpty();
+  req.checkBody('exhibitSelect', 'exhibitSelect cannot be empty').notEmpty();
+  req.checkBody('type', 'type cannot be empty').notEmpty();
+
+
+  var pageErrors = req.validationErrors();
+
+  if(!pageErrors){
+    mysql.addAnimal(con, name, age, exhibitSelect, type, species, function(response, err) {
+      if (err) {
+        res.redirect(req.get('referer'));
+      } else if (response == 0) {
+        console.log("Add animal success");
+        res.sendFile(path.join(__dirname,'./html/add-animal.html'));
+      } else if (response == 1) {
+        console.log("Add animal attempt failed")
+        res.redirect(req.get('referer'));
+      }
+    });
+  } else {
+    console.log("invalid input")
+    res.redirect(req.get('referer'));
+  }
+
+});
+
 app.post("/exhibit_results", urlencodedParser, function(req, res) {
   console.log("Exhibit Search Request Received");
   var name = req.body.name;

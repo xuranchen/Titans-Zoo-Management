@@ -101,6 +101,19 @@ exports.register = function(con, username, email, password, usertype, callback) 
 }
 
 
+exports.addAnimal = function(con, name, age, exhibitSelect, type, species , callback) {
+    console.log("attempting to add")
+    var register_query = "INSERT INTO Animal (Name, Age, Exhibit, Type, Species) VALUES ('" + name + "', '" + age + "', '" + exhibitSelect + "', '" + type + "', '" + species + "');"
+    console.log(register_query)
+    con.query(register_query, function (err, result) {
+      if (err){
+        return callback(1);
+      } else {
+        return callback(0);
+      }
+    });
+}
+
 //exhibit search_shows
 //
 //returns
