@@ -153,7 +153,7 @@ app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
   console.log("Visitor deletion Request Received");
   var name = req.params.query;
   console.log(name)
-  con.query('DELETE FROM User WHERE Username = ?', [name] , function(err,rows) {
+  con.query('DELETE FROM Visitor WHERE Username = ?', [name] , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);

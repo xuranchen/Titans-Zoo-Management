@@ -67,9 +67,30 @@ exports.register = function(con, username, email, password, usertype, callback) 
   var verify_email = "SELECT * FROM User WHERE Email = '" + email + "';";
   var verify_username = "SELECT * FROM User WHERE Username = '" + username + "';";
   bcrypt.hash(password, 10, function(err, hash) {
-    console.log(hash)
-    var regisiter_query = "INSERT INTO User (Username, Password, Email, Usertype) VALUES ('" + username + "', '" + hash + "', '" + email + "', '" + usertype + "');"
-    con.query(regisiter_query, function (err, result) {
+    console.log(usertype)
+    console.log("attempting to add")
+    if (usertype == 1) {
+       var register_query = "INSERT INTO User (Username, Password, Email, Usertype) VALUES ('" + username + "', '" + hash + "', '" + email + "', '" + usertype + "');"
+       var register_query1 = "INSERT INTO Visitor (Username) VALUES ('" + username + "');"
+    }
+    else if (usertype == 2){
+      var register_query = "INSERT INTO User (Username, Password, Email, Usertype) VALUES ('" + username + "', '" + hash + "', '" + email + "', '" + usertype + "');"
+      var register_query1 = "INSERT INTO Staff (Username) VALUES ('" + username + "');"
+    }
+    else if (usertype == 0){
+      var register_query = "INSERT INTO User (Username, Password, Email, Usertype) VALUES ('" + username + "', '" + hash + "', '" + email + "', '" + usertype + "');"
+      var register_query1 = "INSERT INTO Admin (Username) VALUES ('" + username + "');"
+    }
+    console.log(register_query)
+    console.log(register_query1)
+    con.query(register_query, function (err, result) {
+      if (err){
+        return callback(1);
+      } else {
+        return callback(0);
+      }
+    });
+    con.query(register_query1, function (err, result) {
       if (err){
         return callback(1);
       } else {

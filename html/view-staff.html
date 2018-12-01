@@ -34,6 +34,19 @@
                     });
             });
         };
+        function deleteStaff(){
+            console.log('Delete Staff')
+            let name = document.getElementById("delete-name").value;
+            $.post("/delete_staff/" + name)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    location.reload();
+            });
+        };
     </script>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -53,7 +66,8 @@
           </thead>
         </table>
         <br>
-        <button>Delete Staff Member</button>
+        <input id="delete-name" type="text" name="delete-name">
+        <button onclick = "deleteStaff()">Delete Staff Member</button>
     </div>
 
     <script src="./js/main.js"></script>
