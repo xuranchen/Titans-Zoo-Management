@@ -29,6 +29,19 @@
                 });
     });
 });
+function deleteShow(){
+            console.log('Delete Show')
+            let name = document.getElementById("deleteShowName").value;
+            $.post("/delete_Show/" + name)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    location.reload();
+            });
+        };
     </script>
 </head>
 <body>
@@ -59,8 +72,8 @@
             <tr>
             </tr>
         </table>
-        <input type="text" name="name">
-        <button id = "search" name = "search" onclick = "deleteShow()">Delete Show</button>
+        <input type="text" name="deleteShowName" id = "deleteShowName">
+        <button id = "delete" name = "delete" onclick = "deleteShow()">Delete Show</button>
     </div>
 
     <script src="./js/main.js"></script>

@@ -136,11 +136,17 @@ app.post('/addShow', urlencodedParser, function(req, res){
   req.checkBody('date', 'date cannot be empty').notEmpty();
   req.checkBody('time', 'time cannot be empty').notEmpty();
 
-
+  
   var pageErrors = req.validationErrors();
 
   if(!pageErrors){
     console.log("no errors");
+    con.query('SELECT Username, Email FROM User WHERE UserType = "1"', function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
     mysql.addShow(con, name, exhibit, staff, dateTime, function(response, err) {
       if (err) {
         res.redirect(req.get('referer'));
@@ -228,6 +234,18 @@ app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
   var name = req.params.query;
   console.log(name)
   con.query('DELETE FROM User WHERE Usertype = 1 AND Username = ?', [name] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
+
+app.post("/delete_Show/:query", urlencodedParser,  function(req, res) {
+  console.log("Show deletion Request Received");
+  var name = req.params.query;
+  console.log(name)
+  con.query('DELETE FROM Animal_Show WHERE Name =  ?', [name] , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
