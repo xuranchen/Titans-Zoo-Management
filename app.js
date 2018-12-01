@@ -122,7 +122,7 @@ app.post('/addAnimal', urlencodedParser, function(req, res){
 
 });
 
-app.post('/addShow', urlencodedParser, function(req, res){
+app.post('/add_show', urlencodedParser, function(req, res){
   console.log("Add Show Request received")
   var name = req.body.name;
   var exhibit = req.body.exhibitSelect;
@@ -152,7 +152,8 @@ app.post('/addShow', urlencodedParser, function(req, res){
         res.redirect(req.get('referer'));
       } else if (response == 0) {
         console.log("Add Show success");
-        res.sendFile(path.join(__dirname,'./html/add-show.html'));
+        // res.sendFile(path.join(__dirname,'./html/add-show.html'));
+        res.sendFile(path.join(__dirname,'./html/login.html'));
       } else if (response == 1) {
         console.log("Add show attempt failed")
         res.redirect(req.get('referer'));
@@ -253,7 +254,34 @@ app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[4];
   var type = params[5];
 
-  con.query('SELECT Name, Species, Exhibit, Age, Type FROM Animal WHERE Name = ? AND Species = ? AND Exhibit = ? AND Age >= ? AND Age <= ? AND Type = ?', [name,  species, exhibit, min , max, type] , function(err,rows) {
+  var query = "SELECT Name, Species, Exhibit, Age, Type FROM Animal "
+
+
+  if (min != '' && max != '') {
+    query = query + "WHERE Age BETWEEN '" + min + "' AND '"+max+"' "
+  } else if (min != '') {
+    query = query + "WHERE Age <= '" + max +"' "
+  } else if (max != '') {
+    query = query + "WHERE Age >= '" + min + "' "
+  } else {
+    query = query + "WHERE TRUE "
+  }
+
+  if (name != '') {
+    query = query + "AND Name = '" + name + "' "
+  }
+  if (species != '') {
+    query = query + "AND Species = '" + species + "' "
+  }
+  if (exhibit != '') {
+    query = query + "AND Exhibit = '" + exhibit + "' "
+  }
+  if (type != '') {
+    query = query + "AND Type = '" + type + "' "
+  }
+  
+  console.log("query =" + query);
+  con.query(query , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
