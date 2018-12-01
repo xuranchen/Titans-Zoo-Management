@@ -228,6 +228,18 @@ app.get("/search_visitors/:query", urlencodedParser,  function(req, res) {
   });
 });
 
+app.get("/search_shows", urlencodedParser,  function(req, res) {
+  console.log("Show search Request Received");
+  var name = req.body.name;
+  var exhibit = req.body.exhibit;
+  var date = req.body.date;
+  con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Name = ? AND DateTime = ? AND Exhibit = ?', [name, date, exhibit] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
 
 app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
   console.log("Visitor deletion Request Received");
