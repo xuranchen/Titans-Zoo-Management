@@ -235,7 +235,7 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[1];
   var date = params[2];
 
-  var query = "SELECT Name, DateTime, Exhibit, FROM Animal_Show WHERE TRUE "
+  var query = "SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE TRUE "
   if (name != '') {
     query = query + "AND Name = '" + name + "' "
   }
