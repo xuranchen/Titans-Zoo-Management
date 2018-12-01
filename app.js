@@ -270,7 +270,7 @@ app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[4];
   var type = params[5];
 
-  var query = "SELECT Name, Species, Exhibit, Age, Type FROM Animal "
+  var query = "SELECT Name, Species, Exhibit, Age, Genus FROM Animal "
 
 
   if (min != '' && max != '') {
@@ -293,7 +293,7 @@ app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
     query = query + "AND Exhibit = '" + exhibit + "' "
   }
   if (type != '') {
-    query = query + "AND Type = '" + type + "' "
+    query = query + "AND Genus = '" + type + "' "
   }
   
   console.log("query =" + query);
