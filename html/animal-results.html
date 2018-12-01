@@ -27,8 +27,9 @@
         
     function deleteAnimal(){
             console.log('Delete Animal')
-            let name = document.getElementById("deleteAnimal").value;
-            $.post("/delete_animal/" + name)
+            let name = document.getElementById("deleteAnimalName").value;
+            let species = document.getElementById("deleteAnimalSpecies").value;
+            $.post("/delete_animal/" + name + ',' + species)
                 .done(function(data, status) {
                     // alert(JSON.stringify(data));
                     res = data;
@@ -111,7 +112,8 @@
             </tr>
         </thead>
         </table>
-        <input type="text" name="deleteAnimal" id = "deleteAnimal">
+        <input type="text" name="deleteAnimalName" id = "deleteAnimalName" value="Name">
+        <input type="text" name="deleteAnimalSpecies" id = "deleteAnimalSpecies" value="Species">
         <button id = "delete" name = "delete" onclick = "deleteAnimal()">Remove Animal</button>
         <br>
     </div>
