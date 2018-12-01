@@ -129,12 +129,24 @@ app.get("/view_visitors", urlencodedParser,  function(req, res) {
 });
 
 app.get("/pull_visitors", urlencodedParser,  function(req, res) {
-    con.query('SELECT Username, Email FROM User WHERE UserType = 1', function(err,rows) {
+    con.query('SELECT Username, Email FROM User WHERE UserType = "1"', function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
         res.json(rows)
     });
+});
+
+app.get("/search_visitors/:query", urlencodedParser,  function(req, res) {
+  console.log("Visitor search Request Received");
+  var name = req.params.query;
+  console.log(name)
+  con.query('SELECT Username, Email FROM User WHERE UserType = "1" AND Username = ?', [name] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
 });
 
 app.get("/sort_visitors", urlencodedParser,  function(req, res) {
