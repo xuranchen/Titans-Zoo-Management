@@ -171,6 +171,15 @@ app.post('/add_show', urlencodedParser, function(req, res){
 
 });
 
+app.get("/pull_exhibits", urlencodedParser,  function(req, res) {
+    con.query('SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit GROUP BY Animal.Exhibit', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
 app.post("/exhibit_results", urlencodedParser, function(req, res) {
   console.log("Exhibit Search Request Received");
   var name = req.body.name;
@@ -258,7 +267,7 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
       res.json(rows)
   });
 });
-  
+
 
 app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   console.log("Show search Request Received");
@@ -295,7 +304,7 @@ app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   if (type != '') {
     query = query + "AND Type = '" + type + "' "
   }
-  
+
   console.log("query =" + query);
   con.query(query , function(err,rows) {
       if (err) throw err;

@@ -5,8 +5,7 @@
   <script>
     var res = "";
     $(document).ready(function(){
-        $.get("/exhibit_results", function(data, status){
-  //                alert(JSON.stringify(data));
+        $.get("/pull_exhibits", function(data, status){
             res = data;
             console.log(data);
 
