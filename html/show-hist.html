@@ -18,6 +18,16 @@
         select.options[select.options.length] = new Option(d.Exhibit, d.Exhibit);
         });
     });
+    $.get("/pull_all_shows", function(data, status){
+//                alert(JSON.stringify(data));
+        res = data;
+        console.log(data);
+        // add Exhibits to a Select
+        var table = $("#shows thead");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
+                });
+    });
 });
     </script>
 </head>
@@ -38,12 +48,14 @@
             </form>
         </div>
         <br>
-        <table>
+        <table id = "shows" name = "shows">
+                <thead>
             <tr>
                 <th>Name</th>
                 <th>Date</th>
                 <th>Exhibit</th>
             </tr>
+        </thead>
             <tr>
             </tr>
         </table>
