@@ -235,14 +235,21 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[1];
   var date = params[2];
 
-  console.log(name, exhibit, date);
-  con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Name = ? AND Exhibit = ?', [name,  exhibit] , function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows)
-  });
-});
+  var query = "SELECT Name, DateTime, Exhibit, Host FROM Animal_Show WHERE"
+
+  if (name != '') {
+    query = query + " Name = '" + name + "' "
+  }
+  if (species != '') {
+    query = query + "AND Species = '" + species + "' "
+  }
+  if (exhibit != '') {
+    query = query + "AND Exhibit = '" + exhibit + "' "
+  }
+  if (type != '') {
+    query = query + "AND Type = '" + type + "' "
+  }
+  
 
 app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   console.log("Show search Request Received");
