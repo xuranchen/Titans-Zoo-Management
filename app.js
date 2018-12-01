@@ -109,6 +109,21 @@ app.post("/exhibit_results", urlencodedParser, function(req, res) {
   res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
 });
 
+app.post("/exhibit_history", urlencodedParser, function(req, res) {
+  console.log("Exhibit history search Request Received");
+  var name = req.body.name;
+  var amin = req.body.amin;
+  var amax = req.body.amax;
+  var date = req.body.date;
+  mysql.search_exhibits_history(con, cur_user, name, amin, amax, date, function(dat) {
+    if (dat == -1) {
+      res.send("sql error")
+    } else {
+      res.json(dat)
+    }
+  });
+});
+
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/view-visitors.html'));
 });
