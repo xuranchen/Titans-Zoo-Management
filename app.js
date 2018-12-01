@@ -243,6 +243,24 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   });
 });
 
+app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
+  console.log("Show search Request Received");
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var species = params[1];
+  var min = params[2];
+  var max = params[3];
+  var exhibit = params[4];
+  var type = params[5];
+
+  con.query('SELECT Name, Species, Exhibit, Age, Type FROM Animal WHERE Name = ? AND Species = ? AND Exhibit = ? AND Age >= ? AND Age <= ? AND Type = ?', [name,  species, exhibit, min , max, type] , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
+
 app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
   console.log("Visitor deletion Request Received");
   var name = req.params.query;

@@ -37,11 +37,65 @@
                     location.reload();
             });
         };
+        function searchForAnimal(){
+            console.log('Searching for animals')
+            let name = document.getElementById("name").value;
+            let species = document.getElementById("species").value;
+            let min = document.getElementById("min").value;
+            let max = document.getElementById("max").value;
+            let exhibitSelect = document.getElementById("exhibitSelect").value;
+            let typeSelect = document.getElementById("typeSelect").value;
+
+            $.post("/search_animals/" + name + "," + species + "," + min + "," + max + "," + exhibitSelect+ "," + typeSelect)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    $("#animalList tr:not(:first)").remove();
+                    var table = $("#animalList thead");
+                    data.forEach((d) => {
+                        table.after("<tr><td>" + d.Name + "</td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + d.Type + "</td></tr>");
+                    });
+            });
+        };
 </script>
 <body>
     <div class="main">
         <a href="#"><i class="fa fa-home"></i></a>
         <h1>Atlanta Zoo - Animals</h1>
+        <div class="input">
+                <form>
+                    Name: <input id = "name" type="text" name="name">
+
+                    Species: <input id = "species" type="text" name="species">
+
+                    Age
+                    <div class="detail">Min: <input id = "min" type="number" name="min"></div>
+                    <div class="detail">Max: <input id = "max" type="number" name="max"></div>
+
+                    Exhibit:
+                        <select id = "exhibitSelect" name = "exhibitSelect">
+                                <option value="Birds">Birds</option>
+                                <option value="Mountainous">Mountainous</option>
+                                <option value="Jungle">Jungle</option>
+                                <option value="Sahara">Sahara</option>
+                                <option value="Pacific">Pacific</option>
+                        </select>
+
+                    Type:
+                    <select id = "typeSelect">
+                        <option value="mammal">Mammal</option>
+                        <option value="bird">Bird</option>
+                        <option value="amphibian">Amphibian</option>
+                        <option value="reptile">Reptile</option>
+                        <option value="fish">Fish</option>
+                        <option value="invertebrate">Invertebrate</option>
+                    </select>
+                </form>
+            </div>
+            <button onclick = "searchForAnimal()">Search</button>
         <table id = "animalList">
             <thead>
             <tr>
