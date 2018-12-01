@@ -116,11 +116,12 @@ exports.addAnimal = function(con, name, age, exhibit, genus, species , callback)
 
 exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
   console.log("attempting to add")
-  var checker_query = "SELECT * FROM Animal_Show WHERE Host = ? AND DateTime = ?";
+  var checker_query = "SELECT * FROM Animal_Show WHERE Host ='" + staff + "' AND DateTime = '" + dateTime + "'";
   var register_query = "INSERT INTO Animal_Show (Name, DateTime, Exhibit, Host) VALUES ('" + name + "', '" + dateTime + "', '" + exhibit + "', '" + staff + "');";
   console.log(register_query)
-  con.query(checker_query, [staff, dateTime], function (err, result) {
-    console.log(result)
+  console.log(checker_query)
+  con.query(checker_query, function (err, result) {
+    console.log("result =" +  result)
     if (result.length == 0) {
       con.query(register_query, function (err, result2) {
         if (err){
@@ -129,6 +130,10 @@ exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
           return callback(0);
         }
       });
+    }
+    else { 
+      console.log("Insertion failed. Staff has a different show at that time already.");
+      return callback(1);
     }
     if (err) {
       return callback(1);
