@@ -91,20 +91,26 @@ app.post('/addAnimal', urlencodedParser, function(req, res){
   var name = req.body.name;
   var age = req.body.age;
   var exhibitSelect = req.body.exhibitSelect;
-  var type = req.body.type;
+  var genus = req.body.typeSelect;
   var species = req.body.species;
+
+  console.log("name" + name)
+  console.log("age" + age)
+  console.log("exhibitSelect" + exhibitSelect)
+  console.log("genus" + genus)
+  console.log("species" + species)
 
   req.checkBody('name', 'name cannot be empty').notEmpty();
   req.checkBody('species', 'species cannot be empty').notEmpty();
   req.checkBody('age', 'age cannot be empty').notEmpty();
   req.checkBody('exhibitSelect', 'exhibitSelect cannot be empty').notEmpty();
-  req.checkBody('type', 'type cannot be empty').notEmpty();
 
 
   var pageErrors = req.validationErrors();
-
+  console.log(pageErrors);
+  
   if(!pageErrors){
-    mysql.addAnimal(con, name, age, exhibitSelect, type, species, function(response, err) {
+    mysql.addAnimal(con, name, age, exhibitSelect, genus, species, function(response, err) {
       if (err) {
         res.redirect(req.get('referer'));
       } else if (response == 0) {
@@ -136,24 +142,23 @@ app.post('/add_show', urlencodedParser, function(req, res){
   req.checkBody('date', 'date cannot be empty').notEmpty();
   req.checkBody('time', 'time cannot be empty').notEmpty();
 
-  
+
   var pageErrors = req.validationErrors();
 
   if(!pageErrors){
     console.log("no errors");
-    con.query('SELECT Username, Email FROM User WHERE UserType = "1"', function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows)
-  });
+  //   con.query('SELECT Username, Email FROM User WHERE UserType = "1"', function(err,rows) {
+  //     if (err) throw err;
+  //     console.log('Data received from Db:\n');
+  //     console.log(rows);
+  //     res.json(rows)
+  // });
     mysql.addShow(con, name, exhibit, staff, dateTime, function(response, err) {
       if (err) {
         res.redirect(req.get('referer'));
       } else if (response == 0) {
         console.log("Add Show success");
-        // res.sendFile(path.join(__dirname,'./html/add-show.html'));
-        res.sendFile(path.join(__dirname,'./html/login.html'));
+        res.sendFile(path.join(__dirname,'./html/add-show.html'));
       } else if (response == 1) {
         console.log("Add show attempt failed")
         res.redirect(req.get('referer'));
@@ -235,7 +240,7 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[1];
   var date = params[2];
 
-  var query = "SELECT Name, DateTime, Exhibit, FROM Animal_Show WHERE TRUE "
+  var query = "SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE TRUE "
   if (name != '') {
     query = query + "AND Name = '" + name + "' "
   }
@@ -243,7 +248,7 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
     query = query + "AND Exhibit = '" + exhibit + "' "
   }
   if (date != '') {
-    query = query + "AND DateTime = '" + date + "' "
+    query = query + "AND DateTime LIKE '" + date + "%' "
   }
   console.log("query =" + query);
   con.query(query , function(err,rows) {
