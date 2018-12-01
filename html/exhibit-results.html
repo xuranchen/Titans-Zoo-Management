@@ -9,7 +9,7 @@
   //                alert(JSON.stringify(data));
                 res = data;
                 console.log(data);
-                // add visitors to table
+
                 var table = $("#exhibitResults thead");
                 data.forEach((d) => {
                     table.after("<tr><td>" + d.Name + "</td><td>" + d.Size + "</td><td>" + d.NumAnimals + "</td><td>" + d.Water_Feature + "</td></tr>");

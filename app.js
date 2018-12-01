@@ -136,7 +136,7 @@ app.post('/add_show', urlencodedParser, function(req, res){
   req.checkBody('date', 'date cannot be empty').notEmpty();
   req.checkBody('time', 'time cannot be empty').notEmpty();
 
-  
+
   var pageErrors = req.validationErrors();
 
   if(!pageErrors){
