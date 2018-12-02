@@ -267,6 +267,41 @@ app.post("/exhibit_history/:query", urlencodedParser, function(req, res) {
   });
 });
 
+app.get("/pull_show_history", urlencodedParser,  function(req, res) {
+    con.query("SELECT Show_Visits.Name, Show_Visits.DateTime, Animal_Show.Exhibit FROM Show_Visits INNER JOIN Animal_Show ON Show_Visits.Name = Animal_Show.Name WHERE Visitor = '" + cur_user + "'", function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
+app.post("/show_history/:query", urlencodedParser,  function(req, res) {
+  console.log("Show history search Request Received");
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var exhibit = params[1];
+  var date = params[2];
+
+  var query = "SELECT Show_Visits.Name, Show_Visits.DateTime, Exhibit FROM Show_Visits INNER JOIN Animal_Show ON Show_Visits.Name = Animal_Show.Name WHERE Visitor = '" + cur_user + "'";
+  if (name != '') {
+    query = query + " AND Show_Visits.Name = '" + name + "' "
+  }
+  if (exhibit != '') {
+    query = query + " AND Exhibit = '" + exhibit + "' "
+  }
+  if (date != '') {
+    query = query + " AND Show_Visits.DateTime LIKE '" + date + "%' "
+  }
+  console.log("query =" + query);
+  con.query(query , function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows);
+  });
+});
+
 app.get("/view_visitors", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/view-visitors.html'));
 });
