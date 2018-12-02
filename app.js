@@ -201,6 +201,35 @@ app.post("/log_visit/:query", urlencodedParser,  function(req, res) {
   });
 });
 
+
+app.post("/log_Show/:query", urlencodedParser,  function(req, res) {
+  console.log("Log Show Request Received");
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var dateTime = params[1];
+  var currentDate = params[2]
+  var currentExhibit = params[3];
+  var visitor = cur_user;
+  console.log("name" + name);
+  console.log("dateTime" + dateTime);
+  console.log("currentDate" + currentDate);
+
+  console.log("currentExhibit" + currentExhibit);
+  console.log("visitor" + visitor);
+
+  mysql.logShow(con, visitor, currentExhibit, currentDate, name, dateTime, function(response, err) {
+    if (err) {
+      res.redirect(req.get('referer'));
+    } else if (response == 0) {
+      console.log("logging success");
+      res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
+    } else if (response == 1) {
+      console.log("logging attempt failed")
+      res.redirect(req.get('referer'));
+    }
+  });
+});
+
 app.get("/animal_detail/:query", urlencodedParser,  function(req, res) {
   cur_animal_detail = req.params.query;
   console.log(cur_animal_detail);

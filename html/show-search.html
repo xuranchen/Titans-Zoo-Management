@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
+
     <script>
       $(document).ready(function(){
           $.get("/pull_all_shows", function(data, status){
@@ -36,6 +38,24 @@
                     });
             });
         };
+
+        function logShow() {
+        console.log('logging Visit to Show')
+            var name = document.getElementById("showName").value;
+            var dateTime = document.getElementById("showDate").value;
+            var currentDate = moment().format('YYYY-MM-DD hh:mm');
+            var showExhibit = document.getElementById("showExhibit").value;
+            $.post("/log_Show/" +  name + "," + dateTime + "," + currentDate + "," + showExhibit)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove();
+                    location.reload();
+            });
+            
+      }
     </script>
     <meta charset="UTF-8">
     <title>Show Search</title>
@@ -76,6 +96,10 @@
             </tr>
           </thead>
         </table>
+        <input type="text" name="showName" id = "showName" placeholder="Name">
+        <input type="datetime-local" name="showDate" id = "showDate">
+        <input type="showExhibit" name="showExhibit" id = "showExhibit">
+        <button id = "log" name = "log" onclick = "logShow()">Log Show</button>
     </div>
 
     <script src="./js/main.js"></script>

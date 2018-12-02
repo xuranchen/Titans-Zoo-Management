@@ -129,6 +129,29 @@ exports.logVisit = function(con, currentUser, currentExhibit, date, callback) {
 }
 
 
+exports.logShow = function(con, currentUser, currentExhibit, currentDate, name, dateTime, callback) {
+  console.log("attempting to log a visit and a show")
+  var log_query = "INSERT INTO Exhibit_Visits (Visitor, Name, DateTime) VALUES ('" + currentUser + "', '" + currentExhibit + "', '" + currentDate + "');"
+  log_query1 = "INSERT INTO Show_Visits (Name, DateTime, Visitor) VALUES ('" + name + "', '" +  + "', '" + dateTime + "', '" + currentUser + "');"
+  console.log(log_query)
+  console.log(log_query1)
+
+  con.query(log_query, function (err, result) {
+    if (err){
+      return callback(1);
+    } else {
+      return callback(0);
+    }
+  });
+  con.query(log_query1, function (err, result) {
+    if (err){
+      return callback(1);
+    } else {
+      return callback(0);
+    }
+  });
+}
+
 exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
   console.log("attempting to add")
   var checker_query = "SELECT * FROM Animal_Show WHERE Host ='" + staff + "' AND DateTime = '" + dateTime + "'";
