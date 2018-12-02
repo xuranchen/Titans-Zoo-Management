@@ -5,23 +5,32 @@
     <title>Exhibit History</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            $.get("/pull_staff_shows", (data, status) => {
+                res = data;
+                console.log(data);
+                var table = $("#staff-shows thead");
+                data.forEach((d) => {
+                    table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
+                });
+            })
+        }); 
+    </script>
 </head>
 <body>
     <div class="main">
         <a href="staff-index.html"><i class="fa fa-home"></i></a>
         <h1>Staff Shows</h1>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Exhibit</th>
-            </tr>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>Feed the Fish</td>
-                <td>9/20/18 9:00 AM</td>
-                <td>Pacific</td>
-            </tr>
+        <table id="staff-shows">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Exhibit</th>
+                </tr>
+                </thead>
         </table>
     </div>
 
