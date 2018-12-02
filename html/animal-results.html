@@ -61,6 +61,29 @@
                     });
             });
         };
+
+        function sortAnimalAdmin(theButton) {
+          var column = theButton.name;
+          var order = theButton.value;
+
+          if (order == "DESC") {
+            theButton.value = "ASC";
+          } else {
+            theButton.value = "DESC";
+          }
+          var url= '/sort_animals?column=' + column + '&order=' + order;
+          $.get(url, function(data, status){
+            res = data;
+            console.log(data);
+            // add visitors to table
+            $("#animalList tr:not(:first)").remove();
+            var table = $("#animalList thead");
+            data.forEach((d) => {
+                console.log("d:", d);
+                table.after("<tr><td>" + d.Name+ "</td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+            });
+          });
+        }
 </script>
 <body>
     <div class="main">
@@ -102,11 +125,11 @@
         <table id = "animalList">
           <thead>
             <tr>
-                <th><button name="Name" value="DESC" onclick="return sortAnimals(this)">Name</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
-                <th><button name="Species" value="DESC" onclick="return sortAnimals(this)">Species</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
-                <th><button name="Exhibit" value="DESC" onclick="return sortAnimals(this)">Exhibit</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
-                <th><button name="Age" value="DESC" onclick="return sortAnimals(this)">Age</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
-                <th><button name="Genus" value="DESC" onclick="return sortAnimals(this)">Type</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Name" value="DESC" onclick="return sortAnimalAdmin(this)">Name</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Species" value="DESC" onclick="return sortAnimalAdmin(this)">Species</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Exhibit" value="DESC" onclick="return sortAnimalAdmin(this)">Exhibit</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Age" value="DESC" onclick="return sortAnimalAdmin(this)">Age</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Genus" value="DESC" onclick="return sortAnimalAdmin(this)">Type</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
             </tr>
           </thead>
         </table>
