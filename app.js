@@ -184,6 +184,7 @@ app.post("/log_visit/:query", urlencodedParser,  function(req, res) {
   var currentUser = cur_user;
   var currentExhibit = cur_exhibit_detail;
   var date = req.params.query;
+  console.log("TELAJFA:SLKFSALKJSLKA:FLK:SAF");
   console.log(currentUser);
   console.log(currentExhibit);
   console.log(date);
