@@ -27,13 +27,10 @@
             let wFeature = document.getElementById("wFeature").value;
 
             console.log(name, exhibitSelect, date)
-            $.post("/search_shows/" + name + "," + amin + "," + amax + "," + smin + "," + smax + "," + wFeature)
+            $.post("/exhibit_results" + name + "," + amin + "," + amax + "," + smin + "," + smax + "," + wFeature)
                 .done(function(data, status) {
-                    // alert(JSON.stringify(data));
                     res = data;
                     console.log(data);
-                    // add visitors to table
-                    // $("#visitors tr").remove();
                     $("#exhibitResults tr:not(:first)").remove();
                     var table = $("#exhibitResults thead");
                     data.forEach((d) => {
@@ -68,8 +65,9 @@
                 <div style="width: 100%;">Water Feature:<input id = "wFeature" type="checkbox" name="wFeature" value="WaterFeature"></div>
                 <br>
             </form>
-            <button onclick = "searchForExhibits" >Search</button>
         </div>
+        <button onclick = "searchForExhibits()" >Search</button>
+        <br>
         <table id="exhibitResults">
             <thead>
               <th><button name="Name" value="DESC" onclick="return sortVisitors(this)">Name</button><div class="arrow-up"></div><div class="arrow-down"></div></th>

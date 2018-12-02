@@ -5,7 +5,6 @@
     <script>
       $(document).ready(function(){
           $.get("/pull_all_shows", function(data, status){
-      //                alert(JSON.stringify(data));
               res = data;
               console.log(data);
 
@@ -21,10 +20,7 @@
             let name = document.getElementById("name").value;
             let exhibitSelect = document.getElementById("exhibitSelect").value;
             let date = document.getElementById("date").value;
-            if(name == "" | name == null | name == " ") {
-
-            }
-            console.log(name, exhibitSelect, date)
+            
             $.post("/search_shows/" + name + "," + exhibitSelect + "," + date)
                 .done(function(data, status) {
                     // alert(JSON.stringify(data));

@@ -108,7 +108,7 @@ app.post('/addAnimal', urlencodedParser, function(req, res){
 
   var pageErrors = req.validationErrors();
   console.log(pageErrors);
-  
+
   if(!pageErrors){
     mysql.addAnimal(con, name, age, exhibitSelect, genus, species, function(response, err) {
       if (err) {
@@ -247,11 +247,8 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   console.log("Show search Request Received");
   var params = req.params.query.split(",");
   var name = params[0];
-  var amin = params[1];
-  var amax = params[2];
-  var smin = params[3];
-  var smin = params[4];
-  var wFeature = params[5];
+  var exhibit = params[1];
+  var date = params[2];
 
   var query = "SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE TRUE "
   if (name != '') {

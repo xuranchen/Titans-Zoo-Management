@@ -151,30 +151,30 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
   var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit';
 
     if (sizeMin != '' && sizeMax != '') {
-      query = query + "WHERE e.Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
+      query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
     } else if (sizeMin != '') {
-      query = query + "WHERE e.Size <= '" + sizeMax +"' "
+      query = query + "WHERE Size <= '" + sizeMax +"' "
     } else if (sizeMax != '') {
-      query = query + "WHERE e.Size >= '" + sizeMin + "' "
+      query = query + "WHERE Size >= '" + sizeMin + "' "
     } else {
       query = query + "WHERE TRUE "
     }
 
     if (name != '') {
-      query = query + "AND e.Name = '" + name +"' "
+      query = query + "AND Exhibit.Name = '" + name +"' "
     }
     if (water != '') {
-      query = query + "AND e.Water_Feature = '" + water + "' "
+      query = query + "AND Water_Feature = '" + water + "' "
     }
-    if (numMin != '' && numMax != '') {
-      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) BETWEEN '"+ numMin + "' AND '" + numMax + "';"
-    } else if (numMin != '') {
-      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) <= '" + numMax +"';"
-    } else if (numMax != '') {
-      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) >= '" + numMin + "';"
-    } else {
-      query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
-    }
+    // if (numMin != '' && numMax != '') {
+    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) BETWEEN '"+ numMin + "' AND '" + numMax + "';"
+    // } else if (numMin != '') {
+    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) <= '" + numMax +"';"
+    // } else if (numMax != '') {
+    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) >= '" + numMin + "';"
+    // } else {
+    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
+    // }
     query = query + "GROUP BY Animal.Exhibit"
     console.log("query" + query);
     con.query(query, function (err, result) {
