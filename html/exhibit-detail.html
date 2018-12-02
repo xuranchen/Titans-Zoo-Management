@@ -33,7 +33,15 @@
 
       function logVisit() {
         console.log('logging Visit')
-        var date = null;
+        var date = null;    
+        var currentdate = new Date(); 
+var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+                console.log(datetime);
             $.post("/log_visit/" + date)
                 .done(function(data, status) {
                     // alert(JSON.stringify(data));
@@ -43,6 +51,7 @@
                     // $("#visitors tr").remove();
                     location.reload();
             });
+            
       }
     </script>
     <meta charset="UTF-8">
