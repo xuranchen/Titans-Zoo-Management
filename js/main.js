@@ -17,6 +17,23 @@ function loadExhibitResults(){
   location.href = "./exhibit-results.html";
 };
 
+function formatDate(date) {
+    date = date.split("T");
+    date[0] = date[0].slice(5, 10) + "-" + date[0].slice(0, 4);
+
+    date[1] = date[1].slice(0, 5);
+    var hour = +date[1].slice(0,2);
+
+    if (hour > 12) {
+        hour = (hour - 12) < 10 ? "0" + (hour - 12) : (hour - 12);
+        date[1] = hour + date[1].slice(2, 5) + " PM";
+    } else {
+        date[1] += " AM";
+    }
+
+    return date.join(" ");
+}
+
 function sortVisitors(theButton) {
   var column = theButton.name;
   var order = theButton.value;
@@ -81,7 +98,7 @@ function sortExhibits(theButton) {
       } else {
         waterFeature = "No";
       }
-        table.after("<tr><td>" + d.Name + "</td><td>" + d.Size  + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
+        table.after("<tr><td><form action = '/exhibit_detail/" + d.Name + "' method = 'get'><button name=\"" + d.Name + "\" onclick=\"\">" + d.Name + "</button></form></td><td>" + d.Size  + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
     });
   });
 }
@@ -103,7 +120,7 @@ function sortShows(theButton) {
     $("#shows tr:not(:first)").remove();
     var table = $("#shows thead");
     data.forEach((d) => {
-        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
+        table.after("<tr><td>" + d.Name + "</td><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
     });
   });
 }
