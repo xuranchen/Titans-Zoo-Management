@@ -11,12 +11,6 @@
 
               var header = $("h1");
               data.forEach((d) => {
-                var waterFeature;
-                if (d.Water_Feature == 1) {
-                  waterFeature = "Yes";
-                } else {
-                  waterFeature = "No";
-                }
                 header.after("<br>Name: " + d.Name + "<br><br>Species: " + d.Species + "<br><br>Age: " + d.Age + "<br><br>Exhibit: " + d.Exhibit + "<br><br>Type: " + types[d.Genus]);
               });
             });

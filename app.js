@@ -236,7 +236,11 @@ app.get("/animal_detail/:query", urlencodedParser,  function(req, res) {
   res.sendFile(path.join(__dirname,'./html/animal-detail.html'));
 });
 
-
+app.get("/animal_care/:query", urlencodedParser,  function(req, res) {
+  cur_animal_detail = req.params.query;
+  console.log(cur_animal_detail);
+  res.sendFile(path.join(__dirname,'./html/animal-care.html'));
+});
 
 app.get("/pull_exhibit_detail", urlencodedParser,  function(req, res) {
     con.query("SELECT Exhibit.Name, Size, COUNT(*) AS \"NumAnimals\", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit WHERE Exhibit.Name = '" + cur_exhibit_detail + "' GROUP BY Animal.Exhibit", function(err,rows) {
