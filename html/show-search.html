@@ -1,44 +1,84 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+          $.get("/pull_all_shows", function(data, status){
+      //                alert(JSON.stringify(data));
+              res = data;
+              console.log(data);
+
+              var table = $("#shows thead");
+              data.forEach((d) => {
+                  table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
+              });
+
+          });
+      });
+      function searchForShow(){
+            console.log('Searching for shows')
+            let name = document.getElementById("name").value;
+            let exhibitSelect = document.getElementById("exhibitSelect").value;
+            let date = document.getElementById("date").value;
+            if(name == "" | name == null | name == " ") {
+
+            }
+            console.log(name, exhibitSelect, date)
+            $.post("/search_shows/" + name + "," + exhibitSelect + "," + date)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove();
+                    $("#shows tr:not(:first)").remove();
+                    var table = $("#shows thead");
+                    data.forEach((d) => {
+                        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime  + "</td><td>" + d.Exhibit+ "</td></tr>");
+                    });
+            });
+        };
+    </script>
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="./css/style.css">
-<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
-<script>
-$(document).ready(function(){
-    $.get("/pull_Exhibits", function(data, status){
-//                alert(JSON.stringify(data));
-        res = data;
-        console.log(data);
-        // add Exhibits to a Select
-        var table = $("#visitors thead");
-        data.forEach((d) => {
-            table.after("<tr><td>" + d.Exhibit + "</td><td>");
-        });
-
-    });
-});
-</script>
 <body>
 </div>
     <div class="main">
-<!--        <a href="#"><i class="fa fa-home"></i></a>-->
-        <h1>Atlanta Zoo - Shows</h1>
-        <div class="input">
-            <form>
-                Name: <input type="text" name="name">
-                <br><br>
-                Exhibit:
-                <select name="exhibits">
-                </select>
-                <br><br>
-                Date: <input type="date" name="date">
-                <br><br>
-                <button>Search</button>
-            </form>
+       <a href="visitor-index.html"><i class="fa fa-home"></i></a>
+       <h1>Atlanta Zoo - Shows</h1>
+       <div class="input">
+          <form action = '/search_shows' method = 'post'>
+              Name <input id = "name" type="text" name="name">
+              <br><br>
+              Exhibit:
+              <select id = "exhibitSelect" name = "exhibitSelect">
+                      <option disabled selected value>--select an option--</option>
+                      <option value="Birds">Birds</option>
+                      <option value="Mountainous">Mountainous</option>
+                      <option value="Jungle">Jungle</option>
+                      <option value="Sahara">Sahara</option>
+                      <option value="Pacific">Pacific</option>
+              </select>
+              <br><br>
+              Date: <input id = "date"type="date" name="date">
+              <br><br>
+          </form>
         </div>
+        <button onclick = "searchForShow()" name = "searchShows">Search for Show</button>
+        <br>
+        <table id = "shows" name = "shows">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Exhibit</th>
+            </tr>
+          </thead>
+        </table>
     </div>
 
     <script src="./js/main.js"></script>

@@ -8,27 +8,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type = "text/javascript">
         //This is ADMIN VIEW SHOWS!!!!!!!!!!!!!!!!!!
-        $(document).ready(function(){
-//             $.get("/pull_Exhibits", function(data, status){
-// //                alert(JSON.stringify(data));
-//         res = data;
-//         console.log(data);
-//         // add Exhibits to a Select
-//         var select = document.getElementById("exhibitSelect")
-//         data.forEach((d) => {
-//         select.options[select.options.length] = new Option(d.Exhibit, d.Exhibit);
-//         });
-//     });
-    $.get("/pull_all_shows", function(data, status){
-//                alert(JSON.stringify(data));
-        res = data;
-        console.log(data);
-        // add Exhibits to a Select
-        var table = $("#shows thead");
-                data.forEach((d) => {
-                    table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
-                });
+    $(document).ready(function(){
+        $.get("/pull_all_shows", function(data, status){
+            res = data;
+            console.log(data);
+            var table = $("#shows thead");
+                    data.forEach((d) => {
+                        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
+                    });
+        });
     });
+<<<<<<< Updated upstream
 });
 function deleteShow(){
             console.log('Delete Show')
@@ -47,10 +37,29 @@ function deleteShow(){
             });
         };
         function searchForShow(){
+=======
+    function deleteShow(){
+          console.log('Delete Show')
+          let name = document.getElementById("deleteShowName").value;
+          $.post("/delete_Show/" + name)
+              .done(function(data, status) {
+                  // alert(JSON.stringify(data));
+                  res = data;
+                  console.log(data);
+                  // add visitors to table
+                  // $("#visitors tr").remove();
+                  location.reload();
+          });
+      };
+      function searchForShow(){
+>>>>>>> Stashed changes
             console.log('Searching for shows')
             let name = document.getElementById("name").value;
             let exhibitSelect = document.getElementById("exhibitSelect").value;
             let date = document.getElementById("date").value;
+            if(name == "" | name == null | name == " ") {
+
+            }
             console.log(name, exhibitSelect, date)
             $.post("/search_shows/" + name + "," + exhibitSelect + "," + date)
                 .done(function(data, status) {
@@ -58,7 +67,7 @@ function deleteShow(){
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     $("#shows tr:not(:first)").remove();
                     var table = $("#shows thead");
                     data.forEach((d) => {
@@ -78,7 +87,7 @@ function deleteShow(){
                 <br><br>
                 Exhibit:
                 <select id = "exhibitSelect" name = "exhibitSelect">
-                        <option disabled selected value> -- select an option -- </option>
+                        <option disabled selected value>--select an option--</option>
                         <option value="Birds">Birds</option>
                         <option value="Mountainous">Mountainous</option>
                         <option value="Jungle">Jungle</option>
@@ -93,15 +102,13 @@ function deleteShow(){
         <button onclick = "searchForShow()" name = "searchShows">Search for Show</button>
         <br>
         <table id = "shows" name = "shows">
-                <thead>
+          <thead>
             <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Exhibit</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Exhibit</th>
             </tr>
-        </thead>
-            <tr>
-            </tr>
+          </thead>
         </table>
         <input type="text" name="deleteShowName" id = "deleteShowName" value="Name">
         <input type="datetime-local" name="deleteShowDate" id = "deleteShowDate">
