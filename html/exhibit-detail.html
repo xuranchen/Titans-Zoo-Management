@@ -30,6 +30,20 @@
 
           });
       });
+
+      function logVisit() { 
+        console.log('logging Visit')
+        var date = null;
+            $.post("/log_visit/" + date)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove();
+                    location.reload();
+            });
+      }
     </script>
     <meta charset="UTF-8">
     <title>Exhibit Detail</title>
@@ -225,7 +239,7 @@ i:hover {
           </thead>
         </table>
         <br><br>
-        <button>Log Visit</button>
+        <button onclick = "logVisit()" >Log Visit</button>
     </div>
 
     <script src="./js/main.js"></script>

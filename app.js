@@ -180,6 +180,26 @@ app.get("/exhibit_detail/:query", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
 });
 
+app.post("/log_visit/:query", urlencodedParser,  function(req, res) {
+  var currentUser = cur_user;
+  var currentExhibit = cur_exhibit_detail;
+  var date = req.params.query;
+  console.log(currentUser);
+  console.log(currentExhibit);
+  console.log(date);
+  mysql.logVisit(con, currentUser, currentExhibit, date, function(response, err) {
+    if (err) {
+      res.redirect(req.get('referer'));
+    } else if (response == 0) {
+      console.log("logging success");
+      res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
+    } else if (response == 1) {
+      console.log("logging attempt failed")
+      res.redirect(req.get('referer'));
+    }
+  });
+});
+
 app.get("/animal_detail/:query", urlencodedParser,  function(req, res) {
   cur_animal_detail = req.params.query;
   console.log(cur_animal_detail);

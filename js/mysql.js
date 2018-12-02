@@ -101,6 +101,7 @@ exports.register = function(con, username, email, password, usertype, callback) 
 }
 
 
+
 exports.addAnimal = function(con, name, age, exhibit, genus, species , callback) {
     console.log("attempting to add")
     var register_query = "INSERT INTO Animal (Name, Age, Exhibit, Genus, Species) VALUES ('" + name + "', '" + age + "', '" + exhibit + "', '" + genus + "', '" + species + "');"
@@ -113,6 +114,20 @@ exports.addAnimal = function(con, name, age, exhibit, genus, species , callback)
       }
     });
 }
+
+exports.logVisit = function(con, currentUser, currentExhibit, date, callback) {
+  console.log("attempting to log a visit")
+  var log_query = "INSERT INTO Exhibit_Visits (Visitor, Name, DateTime) VALUES ('" + currentUser + "', '" + currentExhibit + "', '" + date + "');"
+  console.log(log_query)
+  con.query(log_query, function (err, result) {
+    if (err){
+      return callback(1);
+    } else {
+      return callback(0);
+    }
+  });
+}
+
 
 exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
   console.log("attempting to add")
