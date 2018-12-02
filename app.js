@@ -444,24 +444,6 @@ app.get("/pull_all_shows", urlencodedParser,  function(req, res) {
     });
 });
 
-app.get("/pull_Exhibits", urlencodedParser,  function(req, res) {
-  con.query('SELECT DISTINCT Exhibit FROM Animal_Show', function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows)
-  });
-});
-
-app.get("/pull_Exhibits", urlencodedParser,  function(req, res) {
-  con.query('SELECT DISTINCT Exhibit FROM Animal_Show', function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows)
-  });
-});
-
 app.get("/pull_animals", urlencodedParser,  function(req, res) {
   con.query('SELECT * FROM Animal', function(err,rows) {
       if (err) throw err;
