@@ -16,6 +16,8 @@ var api = express.Router();
 
 var con;
 var cur_user = null;
+var cur_exhibit_detail = null;
+
 while (con == null){
   console.log('attempting sql connection')
   con = mysql.connect();
@@ -169,6 +171,30 @@ app.post('/add_show', urlencodedParser, function(req, res){
     res.redirect(req.get('referer'));
   }
 
+});
+
+app.get("/exhibit_detail/:query", urlencodedParser,  function(req, res) {
+    cur_exhibit_detail = req.params.query;
+    console.log(cur_exhibit_detail);
+    res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
+});
+
+app.get("/pull_exhibit_detail", urlencodedParser,  function(req, res) {
+    con.query("SELECT Exhibit.Name, Size, COUNT(*) AS \"NumAnimals\", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit WHERE Exhibit.Name = '" + cur_exhibit_detail + "' GROUP BY Animal.Exhibit", function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
+app.get("/pull_exhibit_detail_animals", urlencodedParser,  function(req, res) {
+    con.query("SELECT Name, Species FROM Animal WHERE Exhibit = '" + cur_exhibit_detail, function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
 });
 
 app.get("/pull_exhibits", urlencodedParser,  function(req, res) {
@@ -616,6 +642,9 @@ app.get("/exhibit_results", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
 });
 
+app.get("/exhibit_detail", urlencodedParser,  function(req, res) {
+    res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
+});
 
 app.get("/search_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-search.html'));

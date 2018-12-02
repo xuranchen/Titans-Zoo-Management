@@ -17,6 +17,17 @@ function loadExhibitResults(){
   location.href = "./exhibit-results.html";
 };
 
+function storeExhibitDetail(theButton){
+  console.log('Storing exhibit detail');
+  var name = theButton.name;
+  var url = '/store_exhibit_detail?exhibit=' + name;
+  $.post(url);
+  // .done(function(data, status) {
+  //     // $.get('/exhibit_detail');
+  //     location.href = "./exhibit-detail.html";
+  //   });
+};
+
 function sortVisitors(theButton) {
   var column = theButton.name;
   var order = theButton.value;
