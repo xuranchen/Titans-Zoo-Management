@@ -39,7 +39,7 @@
             let name = document.getElementById("name").value;
             let exhibitSelect = document.getElementById("exhibitSelect").value;
             let date = document.getElementById("date").value;
-            
+
             $.post("/search_shows/" + name + "," + exhibitSelect + "," + date)
                 .done(function(data, status) {
                     // alert(JSON.stringify(data));
@@ -62,7 +62,7 @@
         <h1>Atlanta Zoo - Shows</h1>
         <div class="input">
             <form action = '/search_shows' method = 'post'>
-                Name <input id = "name" type="text" name="name">
+                Name: <input id = "name" type="text" name="name">
                 <br><br>
                 Exhibit:
                 <select id = "exhibitSelect" name = "exhibitSelect">

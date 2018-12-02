@@ -180,28 +180,65 @@ app.get("/pull_exhibits", urlencodedParser,  function(req, res) {
     });
 });
 
-app.post("/exhibit_results", urlencodedParser, function(req, res) {
+app.post("/exhibit_results/:query", urlencodedParser, function(req, res) {
   console.log("Exhibit Search Request Received");
-  var name = req.body.name;
-  var amin = req.body.amin;
-  var amax = req.body.amax;
-  var smin = req.body.smin;
-  var smax = req.body.smax;
-  var water
-  if (req.body.wfeature == "WaterFeature"){
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var numMin = params[1];
+  var numMax = params[2];
+  var sizeMin = params[3];
+  var sizeMax = params[4];
+  var water = null;
+  if (params[5] == "Yes"){
     water = 1;
-  } else {
+  } else if (params[5] == "No"){
     water = 0;
   }
-  mysql.search_exhibits(con, name, amin, amax, smin, smax, water, function(dat) {
-    if (dat == -1) {
-      res.send("sql error")
+  var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit ';
+
+    if (sizeMin != '' && sizeMax != '') {
+      query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
+    } else if (sizeMax != '') {
+      query = query + "WHERE Size <= '" + sizeMax +"' "
+    } else if (sizeMin != '') {
+      query = query + "WHERE Size >= '" + sizeMin + "' "
     } else {
-      // res.json(dat)
-      res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
+      query = query + "WHERE TRUE "
     }
-  });
-  res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
+
+    if (name != '') {
+      query = query + "AND Exhibit.Name = '" + name +"' "
+    }
+    if (water != null) {
+      query = query + "AND Water_Feature = '" + water + "' "
+    }
+
+    query = query + "GROUP BY Animal.Exhibit"
+
+    if (numMin != '' && numMax != '') {
+      query = query + " HAVING COUNT(*) BETWEEN '"+ numMin + "' AND '" + numMax + "' "
+    } else if (numMin != '') {
+      query = query + " HAVING COUNT(*) >= '" + numMin +"' "
+    } else if (numMax != '') {
+      query = query + " HAVING COUNT(*) <= '" + numMax + "' "
+    }
+
+    console.log("query " + query);
+    con.query(query, function (err, result) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(result);
+      res.json(result);
+    });
+  // mysql.search_exhibits(con, name, amin, amax, smin, smax, water, function(dat) {
+  //   if (dat == -1) {
+  //     res.send("sql error")
+  //   } else {
+  //     // res.json(dat)
+  //     res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
+  //   }
+  // });
+  // res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
 
 app.post("/exhibit_history", urlencodedParser, function(req, res) {
@@ -214,7 +251,9 @@ app.post("/exhibit_history", urlencodedParser, function(req, res) {
     if (dat == -1) {
       res.send("sql error")
     } else {
-      res.json(dat)
+      console.log('Data received from Db:\n');
+      console.log(dat);
+      res.json(dat);
     }
   });
 });
@@ -228,7 +267,7 @@ app.get("/pull_visitors", urlencodedParser,  function(req, res) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -239,7 +278,7 @@ app.get("/search_visitors/:query", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -265,7 +304,7 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -335,7 +374,7 @@ app.post("/delete_animal/:query", urlencodedParser,  function(req, res) {
     con.query('DELETE FROM Animal WHERE Name = ? AND Species = ?', [name, species] , function(err,rows) {
         if (err) throw err;
         console.log('Deleted');
-        res.json(rows)
+        res.json(rows);
     });
 
 });
@@ -351,7 +390,7 @@ app.post("/delete_Show/:query", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Deleted:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -363,7 +402,7 @@ app.post("/delete_staff/:query", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -374,7 +413,7 @@ app.get("/sort_visitors", urlencodedParser,  function(req, res) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -383,7 +422,7 @@ app.get("/pull_staff", urlencodedParser,  function(req, res) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -392,7 +431,7 @@ app.get("/pull_staffName", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -404,7 +443,7 @@ app.get("/search_staff/:query", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -415,7 +454,7 @@ app.get("/sort_staff", urlencodedParser,  function(req, res) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -425,18 +464,18 @@ app.get("/view_shows", urlencodedParser,  function(req, res) {
 
 app.get("/pull_shows/", urlencodedParser,  function(req, res) {
   console.log("Show pull Request Received");
-  console.log(req.body)
+  console.log(req.body);
   var name = req.body.name;
   var exhibit = req.body.exhibit;
   var date = req.body.date;
-  console.log(name)
-  console.log(exhibit)
-  console.log(date)
+  console.log(name);
+  console.log(exhibit);
+  console.log(date);
   con.query('SELECT Username, Email FROM User WHERE UserType = "1" AND Username = ? AND ', [name, exhibit, date] , function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -446,7 +485,7 @@ app.get("/pull_staff_shows", urlencodedParser, function(req, res) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -455,7 +494,7 @@ app.get("/pull_all_shows", urlencodedParser,  function(req, res) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
-        res.json(rows)
+        res.json(rows);
     });
 });
 
@@ -464,7 +503,7 @@ app.get("/pull_animals", urlencodedParser,  function(req, res) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
-      res.json(rows)
+      res.json(rows);
   });
 });
 
@@ -531,5 +570,5 @@ app.get("/logout", urlencodedParser,  function(req, res) {
 
 //Starts application
 app.listen(3000, function () {
-  console.log('Zoo Management app listening on port 3000!')
+  console.log('Zoo Management app listening on port 3000!');
 });

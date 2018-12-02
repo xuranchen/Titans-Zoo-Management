@@ -152,9 +152,9 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
 
     if (sizeMin != '' && sizeMax != '') {
       query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
-    } else if (sizeMin != '') {
-      query = query + "WHERE Size <= '" + sizeMax +"' "
     } else if (sizeMax != '') {
+      query = query + "WHERE Size <= '" + sizeMax +"' "
+    } else if (sizeMin != '') {
       query = query + "WHERE Size >= '" + sizeMin + "' "
     } else {
       query = query + "WHERE TRUE "
@@ -176,7 +176,7 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
     //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
     // }
     query = query + "GROUP BY Animal.Exhibit"
-    console.log("query" + query);
+    console.log("query " + query);
     con.query(query, function (err, result) {
       if (err){
         return callback(-1);

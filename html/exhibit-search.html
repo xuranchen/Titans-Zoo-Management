@@ -11,7 +11,13 @@
 
             var table = $("#exhibitResults thead");
             data.forEach((d) => {
-                table.after("<tr><td>" + d.Name + "</td><td>" + d.Size + "</td><td>" + d.NumAnimals + "</td><td>" + d.Water_Feature + "</td></tr>");
+                var waterFeature;
+                if (d.Water_Feature == 1) {
+                  waterFeature = "Yes";
+                } else {
+                  waterFeature = "No";
+                }
+                table.after("<tr><td>" + d.Name + "</td><td>" + d.Size + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
             });
 
         });
@@ -24,17 +30,23 @@
             let amax = document.getElementById("amax").value;
             let smin = document.getElementById("smin").value;
             let smax = document.getElementById("smax").value;
-            let wFeature = document.getElementById("wFeature").value;
+            let wFeature = document.getElementById("waterSelect").value;
 
-            console.log(name, exhibitSelect, date)
-            $.post("/exhibit_results" + name + "," + amin + "," + amax + "," + smin + "," + smax + "," + wFeature)
+            $.post("/exhibit_results/" + name + "," + amin + "," + amax + "," + smin + "," + smax + "," + wFeature)
                 .done(function(data, status) {
                     res = data;
                     console.log(data);
                     $("#exhibitResults tr:not(:first)").remove();
                     var table = $("#exhibitResults thead");
+
                     data.forEach((d) => {
-                        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime  + "</td><td>" + d.Exhibit+ "</td></tr>");
+                      var waterFeature;
+                      if (d.Water_Feature == 1) {
+                        waterFeature = "Yes";
+                      } else {
+                        waterFeature = "No";
+                      }
+                        table.after("<tr><td>" + d.Name + "</td><td>" + d.Size  + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
                     });
             });
         };
@@ -52,21 +64,26 @@
         <h1>Atlanta Zoo - Exhibits</h1>
         <div class="input">
             <form action = '/exhibit_results' method = 'post'>
-                Name <input type="text" name="name" id = "name" >
+                Name: <input type="text" name="name" id = "name" >
                 <br><br>
-                Number of Animals
+                Number of Animals:
                 <div class="detail">Min: <input id ="amin" type="number" name="amin"></div>
                 <div class="detail">Max: <input id = "amax" type="number" name="amax"></div>
                 <br>
-                Size
+                Size:
                 <div class="detail">Min: <input id= "smin" type="number" name="smin"></div>
                 <div class="detail">Max: <input id="smax" type="number" name="smax"></div>
                 <br>
-                <div style="width: 100%;">Water Feature:<input id = "wFeature" type="checkbox" name="wFeature" value="WaterFeature"></div>
+                Water Feature:
+                <select id = "waterSelect" name = "waterSelect">
+                        <option disabled selected value>--select an option--</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                </select>
                 <br>
             </form>
         </div>
-        <button onclick = "searchForExhibits()" >Search</button>
+        <button onclick = "searchForExhibits()">Search</button>
         <br>
         <table id="exhibitResults">
             <thead>
