@@ -33,7 +33,10 @@
 function deleteShow(){
             console.log('Delete Show')
             let name = document.getElementById("deleteShowName").value;
-            $.post("/delete_Show/" + name)
+            let date = document.getElementById("deleteShowDate").value;
+            console.log(typeof date)
+            console.log(date + ":00");
+            $.post("/delete_Show/" + name + "," + date)
                 .done(function(data, status) {
                     // alert(JSON.stringify(data));
                     res = data;
@@ -100,7 +103,8 @@ function deleteShow(){
             <tr>
             </tr>
         </table>
-        <input type="text" name="deleteShowName" id = "deleteShowName">
+        <input type="text" name="deleteShowName" id = "deleteShowName" value="Name">
+        <input type="datetime-local" name="deleteShowDate" id = "deleteShowDate">
         <button id = "delete" name = "delete" onclick = "deleteShow()">Delete Show</button>
     </div>
 
