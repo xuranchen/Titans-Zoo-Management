@@ -328,23 +328,26 @@ app.post("/delete_visitors/:query", urlencodedParser,  function(req, res) {
 
 app.post("/delete_animal/:query", urlencodedParser,  function(req, res) {
   console.log("Animal deletion Request Received");
-  var name = req.params.query;
-  console.log(name)
-  con.query('DELETE FROM Animal WHERE Name = ?', [name] , function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows)
-  });
+    var params = req.params.query.split(",");
+    var name = params[0];
+    var species = params[1];
+    con.query('DELETE FROM Animal WHERE Name = ? AND Species = ?', [name, species] , function(err,rows) {
+        if (err) throw err;
+        console.log('Deleted');
+        res.json(rows)
+    });
+
 });
 
 app.post("/delete_Show/:query", urlencodedParser,  function(req, res) {
   console.log("Show deletion Request Received");
-  var name = req.params.query;
-  console.log(name)
-  con.query('DELETE FROM Animal_Show WHERE Name =  ?', [name] , function(err,rows) {
+    var params = req.params.query.split(",");
+    var name = params[0];
+    var date = params[1];
+    console.log(name)
+    con.query('DELETE FROM Animal_Show WHERE Name =  ? AND DateTime = ?', [name, date] , function(err,rows) {
       if (err) throw err;
-      console.log('Data received from Db:\n');
+      console.log('Deleted:\n');
       console.log(rows);
       res.json(rows)
   });
