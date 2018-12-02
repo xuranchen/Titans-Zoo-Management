@@ -17,7 +17,7 @@
                 } else {
                   waterFeature = "No";
                 }
-                table.after("<tr><td><form action = '/exhibit_detail/" + d.Name + "' method = 'get'><button name=\"" + d.Name + "\" onclick=\"\">" + d.Name + "</button></form></td><td>" + d.Size + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
+                table.after("<tr><td><form action = '/exhibit_detail/" + d.Name + "' method = 'get'><button>" + d.Name + "</button></form></td><td>" + d.Size + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
             });
 
         });
