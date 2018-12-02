@@ -147,7 +147,9 @@ exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
 // -1 if error
 // result if no erorr
 exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, water, callback) {
-    var query = "SELECT * FROM Exhibit as e ";
+
+  var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit'
+
     if (sizeMin != '' && sizeMax != '') {
       query = query + "WHERE e.Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
     } else if (sizeMin != '') {
@@ -173,6 +175,8 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
     } else {
       query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
     }
+    query = query + "GROUP BY Animal.Exhibit"
+    console.log("query" = query);
     con.query(query, function (err, result) {
       if (err){
         return callback(-1);

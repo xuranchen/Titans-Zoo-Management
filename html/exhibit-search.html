@@ -16,6 +16,33 @@
 
         });
     });
+    
+    function searchForExhibits(){
+            console.log('Searching for Exhibits')
+            let name = document.getElementById("name").value;
+            let amin = document.getElementById("amin").value;
+            let amax = document.getElementById("amax").value;
+            let smin = document.getElementById("smin").value;
+            let smax = document.getElementById("smax").value;
+            let wFeature = document.getElementById("wFeature").value;
+
+            console.log(name, exhibitSelect, date)
+            $.post("/search_shows/" + name + "," + amin + "," + amax + "," + smin + "," + smax + "," + wFeature)
+                .done(function(data, status) {
+                    // alert(JSON.stringify(data));
+                    res = data;
+                    console.log(data);
+                    // add visitors to table
+                    // $("#visitors tr").remove(); 
+                    $("#exhibitResults tr:not(:first)").remove();
+                    var table = $("#exhibitResults thead");
+                    data.forEach((d) => {
+                        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime  + "</td><td>" + d.Exhibit+ "</td></tr>");
+                    });
+            });
+        };
+
+
   </script>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -28,20 +55,20 @@
         <h1>Atlanta Zoo - Exhibits</h1>
         <div class="input">
             <form action = '/exhibit_results' method = 'post'>
-                Name <input type="text" name="name">
+                Name <input type="text" name="name" id = "name" >
                 <br><br>
                 Number of Animals
-                <div class="detail">Min: <input type="number" name="amin"></div>
-                <div class="detail">Max: <input type="number" name="amax"></div>
+                <div class="detail">Min: <input id ="amin" type="number" name="amin"></div>
+                <div class="detail">Max: <input id = "amax" type="number" name="amax"></div>
                 <br>
                 Size
-                <div class="detail">Min: <input type="number" name="smin"></div>
-                <div class="detail">Max: <input type="number" name="smax"></div>
+                <div class="detail">Min: <input id= "smin" type="number" name="smin"></div>
+                <div class="detail">Max: <input id="smax" type="number" name="smax"></div>
                 <br>
-                <div style="width: 100%;">Water Feature:<input type="checkbox" name="wfeature" value="WaterFeature"></div>
+                <div style="width: 100%;">Water Feature:<input id = "wFeature" type="checkbox" name="wFeature" value="WaterFeature"></div>
                 <br>
-                <button>Search</button>
             </form>
+            <button onclick = "searchForExhibits" >Search</button>
         </div>
         <table id="exhibitResults">
             <thead>

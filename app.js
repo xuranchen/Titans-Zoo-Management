@@ -197,10 +197,11 @@ app.post("/exhibit_results", urlencodedParser, function(req, res) {
     if (dat == -1) {
       res.send("sql error")
     } else {
-      res.json(dat)
+      // res.json(dat)
+      res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
     }
   });
-  res.sendFile(path.join(__dirname,'./html/exhibit-results.html'));
+  res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
 
 app.post("/exhibit_history", urlencodedParser, function(req, res) {
@@ -246,8 +247,11 @@ app.post("/search_shows/:query", urlencodedParser,  function(req, res) {
   console.log("Show search Request Received");
   var params = req.params.query.split(",");
   var name = params[0];
-  var exhibit = params[1];
-  var date = params[2];
+  var amin = params[1];
+  var amax = params[2];
+  var smin = params[3];
+  var smin = params[4];
+  var wFeature = params[5];
 
   var query = "SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE TRUE "
   if (name != '') {
