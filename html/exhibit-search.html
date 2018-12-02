@@ -16,7 +16,7 @@
 
         });
     });
-    
+
     function searchForExhibits(){
             console.log('Searching for Exhibits')
             let name = document.getElementById("name").value;
@@ -33,7 +33,7 @@
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     $("#exhibitResults tr:not(:first)").remove();
                     var table = $("#exhibitResults thead");
                     data.forEach((d) => {
