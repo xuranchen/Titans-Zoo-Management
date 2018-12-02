@@ -143,7 +143,7 @@ function sortAnimals(theButton) {
     var table = $("#animalList thead");
     data.forEach((d) => {
         console.log("d:", d);
-        table.after("<tr><td><form action = '/animal_detail/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+        table.after("<tr><td><form action = '/animal_detail/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td><form action = '/exhibit_detail/" + d.Exhibit + "' method = 'get'><button>" + d.Exhibit + "</button></form></td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
     });
   });
 }
