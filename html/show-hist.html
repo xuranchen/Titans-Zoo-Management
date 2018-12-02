@@ -48,9 +48,6 @@ function deleteShow(){
             let name = document.getElementById("name").value;
             let exhibitSelect = document.getElementById("exhibitSelect").value;
             let date = document.getElementById("date").value;
-            if(name == "" | name == null | name == " ") {
-
-            }
             console.log(name, exhibitSelect, date)
             $.post("/search_shows/" + name + "," + exhibitSelect + "," + date)
                 .done(function(data, status) {
@@ -78,6 +75,7 @@ function deleteShow(){
                 <br><br>
                 Exhibit:
                 <select id = "exhibitSelect" name = "exhibitSelect">
+                        <option disabled selected value> -- select an option -- </option>
                         <option value="Birds">Birds</option>
                         <option value="Mountainous">Mountainous</option>
                         <option value="Jungle">Jungle</option>
