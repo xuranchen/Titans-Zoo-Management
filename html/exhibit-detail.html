@@ -16,7 +16,7 @@
                 } else {
                   waterFeature = "No";
                 }
-                header.after("<br>Name: " + d.Name + "<br>Size: " + d.Size + "<br>Number of Animals: " + d.NumAnimals + "<br>Water Feature: " + waterFeature + "<br><br>");
+                header.after("<br>Name: " + d.Name + "<br><br>Size: " + d.Size + "<br><br>Number of Animals: " + d.NumAnimals + "<br><br>Water Feature: " + waterFeature + "<br><br>");
               });
           });
           $.get("/pull_exhibit_detail_animals", function(data, status){
@@ -173,7 +173,7 @@ table th button {
     margin-bottom: -10px !important;
     cursor: pointer;
 }
-        
+
 table td button {
     background: none !important;
     border: none !important;
@@ -220,8 +220,6 @@ i:hover {
     color: darkgreen;
 }
 </style>
-
-    </script>
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
    <base href="/">
 </head>

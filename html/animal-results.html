@@ -13,10 +13,8 @@
         var types = ['Mammal', 'Bird', 'Amphibian', 'Reptile', 'Fish', 'Invertebrate'];
         $(document).ready(function(){
             $.get("/pull_animals", function(data, status){
-//                alert(JSON.stringify(data));
                 res = data;
                 console.log(data);
-                // add visitors to table
                 var table = $("#animalList thead");
                 data.forEach((d) => {
                     table.after("<tr><td>" + d.Name + "</td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
