@@ -120,7 +120,7 @@ function sortShows(theButton) {
     $("#shows tr:not(:first)").remove();
     var table = $("#shows thead");
     data.forEach((d) => {
-        table.after("<tr><td>" + d.Name + "</td><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
+        table.after("<tr><form action = '/show_detail/" + d.Name + "' method = 'get'><button>" + d.Name + "</button></form><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
     });
   });
 }
@@ -143,7 +143,7 @@ function sortAnimals(theButton) {
     var table = $("#animalList thead");
     data.forEach((d) => {
         console.log("d:", d);
-        table.after("<tr><td>" + d.Name + "</td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+        table.after("<tr><td><form action = '/animal_detail/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
     });
   });
 }
