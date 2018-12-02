@@ -465,14 +465,20 @@ app.post("/delete_Show/:query", urlencodedParser,  function(req, res) {
     var params = req.params.query.split(",");
     var name = params[0];
     var date = new Date(params[1]);
-    date.setHours(date.getHours() - 5);
+    console.log(date)
+    date.setHours(date.getHours() - 4);
     console.log(date);
     con.query('DELETE FROM Animal_Show WHERE Name =  ? AND DateTime = ?', [name, date] , function(err,rows) {
       if (err) throw err;
       console.log('Deleted:\n');
-      console.log(rows);
-      res.json(rows);
-  });
+    });
+    date.setHours(date.getHours() - 1);
+    con.query('DELETE FROM Animal_Show WHERE Name =  ? AND DateTime = ?', [name, date] , function(err,rows) {
+        if (err) throw err;
+        console.log('Deleted:\n');
+        console.log(rows);
+        res.json(rows);
+    });
 });
 
 app.post("/delete_staff/:query", urlencodedParser,  function(req, res) {
