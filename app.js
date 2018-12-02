@@ -180,6 +180,17 @@ app.get("/pull_exhibits", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/sort_exhibits", urlencodedParser,  function(req, res) {
+    var column = req.query.column;
+    var order = req.query.order;
+    con.query('SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit GROUP BY Animal.Exhibit ORDER BY ' + column + ' ' + order, function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows);
+    });
+});
+
 app.post("/exhibit_results/:query", urlencodedParser, function(req, res) {
   console.log("Exhibit Search Request Received");
   var params = req.params.query.split(",");

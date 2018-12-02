@@ -57,3 +57,32 @@ function sortStaff(theButton) {
     });
   });
 }
+
+function sortExhibits(theButton) {
+  var column = theButton.name;
+  var order = theButton.value;
+
+
+  if (order == "DESC") {
+    theButton.value = "ASC";
+  } else {
+    theButton.value = "DESC";
+  }
+  var url= '/sort_exhibits?column=' + column + '&order=' + order;
+  $.get(url, function(data, status){
+    res = data;
+    console.log(data);
+    // add visitors to table
+    $("#exhibitResults tr:not(:first)").remove();
+    var table = $("#exhibitResults thead");
+    data.forEach((d) => {
+      var waterFeature;
+      if (d.Water_Feature == 1) {
+        waterFeature = "Yes";
+      } else {
+        waterFeature = "No";
+      }
+        table.after("<tr><td>" + d.Name + "</td><td>" + d.Size  + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
+    });
+  });
+}
