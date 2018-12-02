@@ -18,9 +18,7 @@
                     });
         });
     });
-<<<<<<< Updated upstream
-});
-function deleteShow(){
+    function deleteShow(){
             console.log('Delete Show')
             let name = document.getElementById("deleteShowName").value;
             let date = document.getElementById("deleteShowDate").value;
@@ -32,27 +30,11 @@ function deleteShow(){
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     location.reload();
             });
         };
         function searchForShow(){
-=======
-    function deleteShow(){
-          console.log('Delete Show')
-          let name = document.getElementById("deleteShowName").value;
-          $.post("/delete_Show/" + name)
-              .done(function(data, status) {
-                  // alert(JSON.stringify(data));
-                  res = data;
-                  console.log(data);
-                  // add visitors to table
-                  // $("#visitors tr").remove();
-                  location.reload();
-          });
-      };
-      function searchForShow(){
->>>>>>> Stashed changes
             console.log('Searching for shows')
             let name = document.getElementById("name").value;
             let exhibitSelect = document.getElementById("exhibitSelect").value;
