@@ -189,7 +189,7 @@ app.get("/pull_exhibit_detail", urlencodedParser,  function(req, res) {
 });
 
 app.get("/pull_exhibit_detail_animals", urlencodedParser,  function(req, res) {
-    con.query("SELECT Name, Species FROM Animal WHERE Exhibit = '" + cur_exhibit_detail, function(err,rows) {
+    con.query("SELECT Name, Species FROM Animal WHERE Exhibit = '" + cur_exhibit_detail + "'", function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);

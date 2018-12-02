@@ -1,35 +1,4 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-      var res = "";
-      $(document).ready(function(){
-          $.get("/pull_exhibit_detail", function(data, status){
-              res = data;
-              console.log(data);
-              var header = $("h1");
-              data.forEach((d) => {
-                header.after("<br>Name: " + d.Name + "<br>Size: " + d.Size + "<br>Number of Animals: " + d.NumAnimals + "<br>Water Feature: " + d.Water_Feature + "<br><br>");
-              });
-          });
-          $.get("/pull_exhibit_detail_animals", function(data, status){
-              res = data;
-              console.log("animals " + data);
-
-              var table = $("#exhibitAnimals thead");
-              data.forEach((d) => {
-                  table.after("<tr><td><button name=\"" + d.Name + "\" onclick=\"\">" + d.Name + "</button></td><td>" + d.Species + "</td></tr>");
-              });
-
-          });
-      });
-    </script>
-    <meta charset="UTF-8">
-    <title>Exhibit Detail</title>
-    <!-- <link rel="stylesheet" href="./css/style.css"> -->
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 html {
     background-image: url("https://images.unsplash.com/photo-1504700610630-ac6aba3536d3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aab214af505877ba2f060ec9fee12cb9&auto=format&fit=crop&w=1050&q=80");
@@ -190,29 +159,3 @@ i {
 i:hover {
     color: darkgreen;
 }
-</style>
-
-    </script>
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-   <base href="/">
-</head>
-<body>
-    <div class="main">
-       <a href="visitor-index.html"><i class="fa fa-home"></i></a>
-        <h1>Exhibit Detail</h1>
-        <h3 style="margin-bottom: -5px;">Animal Information</h3>
-        <table id="exhibitAnimals">
-          <thead>
-            <tr>
-                <th>Name</th>
-                <th>Species</th>
-            </tr>
-          </thead>
-        </table>
-        <br><br>
-        <button>Log Visit</button>
-    </div>
-
-    <script src="./js/main.js"></script>
-</body>
-</html>
