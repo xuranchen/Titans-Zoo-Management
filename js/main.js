@@ -107,3 +107,26 @@ function sortShows(theButton) {
     });
   });
 }
+
+function sortAnimals(theButton) {
+  var column = theButton.name;
+  var order = theButton.value;
+
+  if (order == "DESC") {
+    theButton.value = "ASC";
+  } else {
+    theButton.value = "DESC";
+  }
+  var url= '/sort_animals?column=' + column + '&order=' + order;
+  $.get(url, function(data, status){
+    res = data;
+    console.log(data);
+    // add visitors to table
+    $("#animalList tr:not(:first)").remove();
+    var table = $("#animalList thead");
+    data.forEach((d) => {
+        console.log("d:", d);
+        table.after("<tr><td>" + d.Name + "</td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+    });
+  });
+}

@@ -564,6 +564,17 @@ app.get("/pull_all_shows", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/sort_animals", urlencodedParser,  function(req, res) {
+    var column = req.query.column;
+    var order = req.query.order;
+    con.query('SELECT * FROM Animal ORDER BY ' + column + ' ' + order, function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows);
+    });
+});
+
 app.get("/pull_animals", urlencodedParser,  function(req, res) {
   con.query('SELECT * FROM Animal', function(err,rows) {
       if (err) throw err;

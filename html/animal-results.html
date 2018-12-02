@@ -102,15 +102,15 @@
             </div>
             <button onclick = "searchForAnimal()">Search</button>
         <table id = "animalList">
-            <thead>
+          <thead>
             <tr>
-                <th>Name</th>
-                <th>Species</th>
-                <th>Exhibit</th>
-                <th>Age</th>
-                <th>Type</th>
+                <th><button name="Name" value="DESC" onclick="return sortAnimals(this)">Name</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Species" value="DESC" onclick="return sortAnimals(this)">Species</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Exhibit" value="DESC" onclick="return sortAnimals(this)">Exhibit</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Age" value="DESC" onclick="return sortAnimals(this)">Age</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                <th><button name="Genus" value="DESC" onclick="return sortAnimals(this)">Type</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
             </tr>
-        </thead>
+          </thead>
         </table>
         <input type="text" name="deleteAnimalName" id = "deleteAnimalName" placeholder="Name">
         <input type="text" name="deleteAnimalSpecies" id = "deleteAnimalSpecies" placeholder="Species">
