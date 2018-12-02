@@ -195,32 +195,31 @@ app.post("/exhibit_results/:query", urlencodedParser, function(req, res) {
     water = 0;
   }
   var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit ';
-
     if (sizeMin != '' && sizeMax != '') {
-      query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
+      query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' ";
     } else if (sizeMax != '') {
-      query = query + "WHERE Size <= '" + sizeMax +"' "
+      query = query + "WHERE Size <= '" + sizeMax +"' ";
     } else if (sizeMin != '') {
-      query = query + "WHERE Size >= '" + sizeMin + "' "
+      query = query + "WHERE Size >= '" + sizeMin + "' ";
     } else {
-      query = query + "WHERE TRUE "
+      query = query + "WHERE TRUE ";
     }
 
     if (name != '') {
-      query = query + "AND Exhibit.Name = '" + name +"' "
+      query = query + "AND Exhibit.Name = '" + name +"' ";
     }
     if (water != null) {
-      query = query + "AND Water_Feature = '" + water + "' "
+      query = query + "AND Water_Feature = '" + water + "' ";
     }
 
-    query = query + "GROUP BY Animal.Exhibit"
+    query = query + "GROUP BY Animal.Exhibit";
 
     if (numMin != '' && numMax != '') {
-      query = query + " HAVING COUNT(*) BETWEEN '"+ numMin + "' AND '" + numMax + "' "
+      query = query + " HAVING COUNT(*) BETWEEN '"+ numMin + "' AND '" + numMax + "' ";
     } else if (numMin != '') {
-      query = query + " HAVING COUNT(*) >= '" + numMin +"' "
+      query = query + " HAVING COUNT(*) >= '" + numMin +"' ";
     } else if (numMax != '') {
-      query = query + " HAVING COUNT(*) <= '" + numMax + "' "
+      query = query + " HAVING COUNT(*) <= '" + numMax + "' ";
     }
 
     console.log("query " + query);
@@ -241,12 +240,22 @@ app.post("/exhibit_results/:query", urlencodedParser, function(req, res) {
   // res.sendFile(path.join(__dirname,'./html/exhibit-search.html'));
 });
 
-app.post("/exhibit_history", urlencodedParser, function(req, res) {
+app.get("/pull_exhibit_history", urlencodedParser,  function(req, res) {
+    con.query("SELECT *, Count(*) as \"NumVisits\" FROM Exhibit_Visits WHERE Visitor = '" + cur_user + "' GROUP BY Name", function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
+app.post("/exhibit_history/:query", urlencodedParser, function(req, res) {
   console.log("Exhibit history search Request Received");
-  var name = req.body.name;
-  var amin = req.body.amin;
-  var amax = req.body.amax;
-  var date = req.body.date;
+  var params = req.params.query.split(",");
+  var name = params[0];
+  var amin = params[1];
+  var amax = params[2];
+  var date = params[3];
   mysql.search_exhibits_history(con, cur_user, name, amin, amax, date, function(dat) {
     if (dat == -1) {
       res.send("sql error")

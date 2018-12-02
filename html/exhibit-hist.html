@@ -1,6 +1,45 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    var res = "";
+    $(document).ready(function(){
+        $.get("/pull_exhibit_history", function(data, status){
+            //alert(JSON.stringify(data));
+            res = data;
+            console.log(data);
+
+            var table = $("#exhibitHistory thead");
+            data.forEach((d) => {
+                table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.NumVisits + "</td></tr>");
+            });
+
+        });
+    });
+
+    function searchForExhibitH(){
+            console.log('Searching for Exhibit History')
+            let name = document.getElementById("name").value;
+            let amin = document.getElementById("amin").value;
+            let amax = document.getElementById("amax").value;
+            let date = document.getElementById("date").value;
+
+            $.post("/exhibit_history/" + name + "," + amin + "," + amax + "," + date)
+                .done(function(data, status) {
+                    res = data;
+                    console.log(data);
+                    $("#exhibitHistory tr:not(:first)").remove();
+                    var table = $("#exhibitHistory thead");
+
+                    data.forEach((d) => {
+                        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.NumVisits + "</td></tr>");
+                    });
+            });
+        };
+
+
+  </script>
     <meta charset="UTF-8">
     <title>Exhibit History</title>
     <link rel="stylesheet" href="./css/style.css">
@@ -12,30 +51,24 @@
         <h1>Atlanta Zoo - Exhibits</h1>
         <div class="input">
             <form action = '/exhibit_history' method = 'post' >
-                Name <input type="text" name="name">
+                Name <input type="text" name="name" id="name">
                 <br><br>
                 Number of Visits
-                <div class="detail">Min: <input type="number" name="amin"></div>
-                <div class="detail">Max: <input type="number" name="amax"></div>
+                <div class="detail">Min: <input type="number" name="amin" id="amin"></div>
+                <div class="detail">Max: <input type="number" name="amax" id="amax"></div>
                 <br>
-                Date: <input type="date" name="date">
+                Date: <input type="date" name="date" id="date">
                 <br><br>
-                <button>Search</button>
             </form>
         </div>
+        <button onclick = "searchForExhibitH()">Search</button>
         <br>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Number of Visits</th>
-            </tr>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>Pacific</td>
-                <td>9/20/18 9:00 AM</td>
-                <td>2</td>
-            </tr>
+        <table id="exhibitHistory">
+            <thead>
+              <th><button name="Name" value="DESC" onclick="">Name</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+              <th><button name="DateTime" value="DESC" onclick="">Date</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+              <th><button name="NumVisits" value="DESC" onclick="">Number of Visits</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+            </thead>
         </table>
     </div>
 

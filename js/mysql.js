@@ -141,65 +141,20 @@ exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
   });
 }
 
-//exhibit search_shows
-//
-//returns
-// -1 if error
-// result if no erorr
-exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, water, callback) {
-
-  var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit ';
-
-    if (sizeMin != '' && sizeMax != '') {
-      query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "
-    } else if (sizeMax != '') {
-      query = query + "WHERE Size <= '" + sizeMax +"' "
-    } else if (sizeMin != '') {
-      query = query + "WHERE Size >= '" + sizeMin + "' "
-    } else {
-      query = query + "WHERE TRUE "
-    }
-
-    if (name != '') {
-      query = query + "AND Exhibit.Name = '" + name +"' "
-    }
-    if (water != '') {
-      query = query + "AND Water_Feature = '" + water + "' "
-    }
-    // if (numMin != '' && numMax != '') {
-    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) BETWEEN '"+ numMin + "' AND '" + numMax + "';"
-    // } else if (numMin != '') {
-    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) <= '" + numMax +"';"
-    // } else if (numMax != '') {
-    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name) >= '" + numMin + "';"
-    // } else {
-    //   query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
-    // }
-    query = query + "GROUP BY Animal.Exhibit"
-    console.log("query " + query);
-    con.query(query, function (err, result) {
-      if (err){
-        return callback(-1);
-      } else {
-        return callback(result);
-      }
-    });
-}
-
 //exhibit history
 //
 //returns
 // -1 if error
 // result if no erorr
 exports.search_exhibits_history = function(con, cur_user, name, visitMin, visitMax, date, callback) {
-  query = "SELECT *, Count(*) FROM Exhibit_Visits WHERE Visitor = '" + cur_user + "' ";
+  query = "SELECT *, Count(*) as \"NumVisits\" FROM Exhibit_Visits WHERE Visitor = '" + cur_user + "' ";
   if (name != '') {
-    query = query + "AND Name = '" + name + "' "
+    query = query + "AND Name = '" + name + "' ";
   }
   if (date != '') {
-    query = query + "AND DateTime LIKE '" + date + "%' "
+    query = query + "AND DateTime LIKE '" + date + "%' ";
   }
-  query = query + "GROUP BY Name "
+  query = query + "GROUP BY Name ";
 
   if (visitMin != '' && visitMax != '') {
     query = query + "Having Count(*) BETWEEN " + visitMin + " and " + visitMax + ";"
