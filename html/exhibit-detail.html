@@ -10,7 +10,13 @@
               console.log(data);
               var header = $("h1");
               data.forEach((d) => {
-                header.after("<br>Name: " + d.Name + "<br>Size: " + d.Size + "<br>Number of Animals: " + d.NumAnimals + "<br>Water Feature: " + d.Water_Feature + "<br><br>");
+                var waterFeature;
+                if (d.Water_Feature == 1) {
+                  waterFeature = "Yes";
+                } else {
+                  waterFeature = "No";
+                }
+                header.after("<br>Name: " + d.Name + "<br>Size: " + d.Size + "<br>Number of Animals: " + d.NumAnimals + "<br>Water Feature: " + waterFeature + "<br><br>");
               });
           });
           $.get("/pull_exhibit_detail_animals", function(data, status){
