@@ -120,7 +120,7 @@ function sortShows(theButton) {
     $("#shows tr:not(:first)").remove();
     var table = $("#shows thead");
     data.forEach((d) => {
-        table.after("<tr><form action = '/show_detail/" + d.Name + "' method = 'get'><button>" + d.Name + "</button></form><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
+        table.after("<tr><td><form action = '/show_detail/" + d.Name + "' method = 'get'><button>" + d.Name + "</button></form></td><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
     });
   });
 }
