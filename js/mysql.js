@@ -148,7 +148,7 @@ exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
 // result if no erorr
 exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, water, callback) {
 
-  var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit';
+  var query = 'SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit ';
 
     if (sizeMin != '' && sizeMax != '') {
       query = query + "WHERE Size BETWEEN '" + sizeMin + "' AND '"+sizeMax+"' "

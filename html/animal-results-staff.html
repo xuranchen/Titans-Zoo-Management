@@ -24,7 +24,7 @@
 
             });
         });
-        
+
     function deleteAnimal(){
             console.log('Delete Animal')
             let name = document.getElementById("deleteAnimal").value;
@@ -34,7 +34,7 @@
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     location.reload();
             });
         };
@@ -53,7 +53,7 @@
                     res = data;
                     console.log(data);
                     // add visitors to table
-                    // $("#visitors tr").remove(); 
+                    // $("#visitors tr").remove();
                     $("#animalList tr:not(:first)").remove();
                     var table = $("#animalList thead");
                     data.forEach((d) => {
@@ -78,6 +78,7 @@
 
                     Exhibit:
                         <select id = "exhibitSelect" name = "exhibitSelect">
+                                <option value=""> -- select an option -- </option>
                                 <option value="Birds">Birds</option>
                                 <option value="Mountainous">Mountainous</option>
                                 <option value="Jungle">Jungle</option>
@@ -87,6 +88,7 @@
 
                     Type:
                     <select id = "typeSelect">
+                        <option value=""> -- select an option -- </option>
                         <option value="0">Mammal</option>
                         <option value="1">Bird</option>
                         <option value="2">Amphibian</option>

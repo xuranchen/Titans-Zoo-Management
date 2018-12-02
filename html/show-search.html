@@ -20,7 +20,7 @@
             let name = document.getElementById("name").value;
             let exhibitSelect = document.getElementById("exhibitSelect").value;
             let date = document.getElementById("date").value;
-            
+
             $.post("/search_shows/" + name + "," + exhibitSelect + "," + date)
                 .done(function(data, status) {
                     // alert(JSON.stringify(data));
@@ -52,7 +52,7 @@
               <br><br>
               Exhibit:
               <select id = "exhibitSelect" name = "exhibitSelect">
-                      <option disabled selected value>--select an option--</option>
+                      <option value="">--select an option--</option>
                       <option value="Birds">Birds</option>
                       <option value="Mountainous">Mountainous</option>
                       <option value="Jungle">Jungle</option>
