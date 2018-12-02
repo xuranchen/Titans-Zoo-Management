@@ -443,6 +443,16 @@ app.get("/pull_shows/", urlencodedParser,  function(req, res) {
   });
 });
 
+app.get("/pull_staff_shows", urlencodedParser, function(req, res) {
+    console.log("Staff show history Request Received");
+    con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Host = "' + cur_user + '"', function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows)
+    });
+});
+
 app.get("/pull_all_shows", urlencodedParser,  function(req, res) {
     con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show', function(err,rows) {
         if (err) throw err;
