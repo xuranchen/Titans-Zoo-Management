@@ -62,7 +62,6 @@ function sortExhibits(theButton) {
   var column = theButton.name;
   var order = theButton.value;
 
-
   if (order == "DESC") {
     theButton.value = "ASC";
   } else {
@@ -83,6 +82,28 @@ function sortExhibits(theButton) {
         waterFeature = "No";
       }
         table.after("<tr><td>" + d.Name + "</td><td>" + d.Size  + "</td><td>" + d.NumAnimals + "</td><td>" + waterFeature + "</td></tr>");
+    });
+  });
+}
+
+function sortShows(theButton) {
+  var column = theButton.name;
+  var order = theButton.value;
+
+  if (order == "DESC") {
+    theButton.value = "ASC";
+  } else {
+    theButton.value = "DESC";
+  }
+  var url= '/sort_all_shows?column=' + column + '&order=' + order;
+  $.get(url, function(data, status){
+    res = data;
+    console.log(data);
+    // add visitors to table
+    $("#shows tr:not(:first)").remove();
+    var table = $("#shows thead");
+    data.forEach((d) => {
+        table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
     });
   });
 }
