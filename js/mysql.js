@@ -131,7 +131,7 @@ exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
         }
       });
     }
-    else { 
+    else {
       console.log("Insertion failed. Staff has a different show at that time already.");
       return callback(1);
     }
@@ -175,6 +175,10 @@ exports.search_exhibits = function(con, name, numMin, numMax, sizeMin, sizeMax, 
     } else {
       query = query + "AND (SELECT COUNT(*) FROM Animal AS a WHERE a.Exhibit = e.Name);"
     }
+<<<<<<< HEAD
+=======
+    query = query + "GROUP BY Animal.Exhibit"
+>>>>>>> 500cb177fd9c0b6f2015212596552eda1a43046b
     console.log("query" + query);
     con.query(query, function (err, result) {
       if (err){
