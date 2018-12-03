@@ -6,7 +6,7 @@
     <script src="./js/main.js"></script>
 
     <script>
-        
+
       var types = ['Mammal', 'Bird', 'Amphibian', 'Reptile', 'Fish', 'Invertebrate'];
       $(document).ready(function(){
         $.get("/pull_animal_detail", function(data, status){
@@ -24,7 +24,7 @@
 
           var table = $("#notes thead");
           data.forEach((d) => {
-            table.after("<tr><td>" + d.Staff + "</td><td>" + d.Text + "</td><td>" + formatDate(d.DateTime) + "</td></tr>");
+            table.after("<tr><td>" + d.Staff + "</td><td>" + d.Text + "</td><td>" + d.DateTime + "</td></tr>");
           });
         });
       });
@@ -36,7 +36,7 @@
                 console.log(dateTime);
                 var notes = document.getElementById("notes").value;
             $.post("/log_Care/" + dateTime + "," +  notes)
-                .done(function(data, status) { 
+                .done(function(data, status) {
                     // alert(JSON.stringify(data));
                     res = data;
                     console.log(data);
@@ -44,24 +44,24 @@
                     // $("#visitors tr").remove();
                     location.reload();
             });
-            
+
       }
       function formatDate(date) {
-    date = date.split("T");
-    date[0] = date[0].slice(5, 10) + "-" + date[0].slice(0, 4);
+          date = date.split("T");
+          date[0] = date[0].slice(5, 10) + "-" + date[0].slice(0, 4);
 
-    date[1] = date[1].slice(0, 5);
-    var hour = +date[1].slice(0,2);
+          date[1] = date[1].slice(0, 5);
+          var hour = +date[1].slice(0,2);
 
-    if (hour > 12) {
-        hour = (hour - 12) < 10 ? "0" + (hour - 12) : (hour - 12);
-        date[1] = hour + date[1].slice(2, 5) + " PM";
-    } else {
-        date[1] += " AM";
-    }
+          if (hour > 12) {
+              hour = (hour - 12) < 10 ? "0" + (hour - 12) : (hour - 12);
+              date[1] = hour + date[1].slice(2, 5) + " PM";
+          } else {
+              date[1] += " AM";
+          }
 
-    return date.join(" ");
-}
+          return date.join(" ");
+      }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto');
