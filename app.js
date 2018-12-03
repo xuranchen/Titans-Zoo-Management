@@ -138,8 +138,9 @@ app.post('/add_show', urlencodedParser, function(req, res){
   var name = req.body.name;
   var exhibit = req.body.exhibitSelect;
   var staff = req.body.staffSelect;
-  var dateTime = req.body.date + " " +req.body.time;
-  console.log(dateTime);
+  var dateTime = new Date(req.body.date + " " +req.body.time);
+
+  console.log(dateTime + typeof dateTime);
 
   req.checkBody('name', 'name cannot be empty').notEmpty();
   req.checkBody('exhibitSelect', 'exhibit cannot be empty').notEmpty();
