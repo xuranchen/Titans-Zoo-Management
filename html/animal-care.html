@@ -24,7 +24,7 @@
 
           var table = $("#notes thead");
           data.forEach((d) => {
-            table.after("<tr><td>" + d.Staff + "</td><td>" + d.Text + "</td><td>" + d.DateTime + "</td></tr>");
+            table.after("<tr><td>" + d.Staff + "</td><td>" + d.Text + "</td><td>" + formatDate(d.DateTime) + "</td></tr>");
           });
         });
       });
