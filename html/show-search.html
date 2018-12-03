@@ -42,8 +42,11 @@
         function logShow() {
         console.log('logging Visit to Show')
             var name = document.getElementById("showName").value;
-            var dateTime = document.getElementById("showDate").value;
+            var dateTim = document.getElementById("showDate").value;
+            dateTime =  moment(dateTim).format('YYYY-MM-DD hh:mm');
             var currentDate = moment().format('YYYY-MM-DD hh:mm');
+            console.log(currentDate);
+            console.log(dateTime)
             var showExhibit = document.getElementById("showExhibit").value;
             $.post("/log_Show/" +  name + "," + dateTime + "," + currentDate + "," + showExhibit)
                 .done(function(data, status) {
