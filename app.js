@@ -311,6 +311,17 @@ app.get("/pull_exhibit_detail_animals", urlencodedParser,  function(req, res) {
     });
 });
 
+app.get("/sort_exhibit_detail", urlencodedParser,  function(req, res) {
+    var column = req.query.column;
+    var order = req.query.order;
+    con.query("SELECT Name, Species FROM Animal WHERE Exhibit = '" + cur_exhibit_detail + "' ORDER BY " + column + " " + order, function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows);
+    });
+});
+
 app.get("/pull_exhibits", urlencodedParser,  function(req, res) {
     con.query('SELECT Exhibit.Name, Size, COUNT(*) AS "NumAnimals", Water_Feature FROM Exhibit INNER JOIN Animal ON Exhibit.Name = Animal.Exhibit GROUP BY Animal.Exhibit', function(err,rows) {
         if (err) throw err;
