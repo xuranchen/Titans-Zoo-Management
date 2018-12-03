@@ -14,6 +14,15 @@
             header.after("<br>Name: " + d.Name + "<br><br>Species: " + d.Species + "<br><br>Age: " + d.Age + "<br><br>Exhibit: " + d.Exhibit + "<br><br>Type: " + types[d.Genus]);
           });
         });
+        $.get("/pull_animal_notes", function(data, status){
+          res = data;
+          console.log("animals " + data);
+
+          var table = $("#notes thead");
+          data.forEach((d) => {
+            table.after("<tr><td>" + d.Staff + "</td><td>" + d.Text + "</td><td>" + formateDate(d.DateTime) + "</td></tr>");
+          });
+        });
       });
     </script>
     <style>
@@ -201,18 +210,14 @@
         <br><br>
         <textarea class="note" rows="50" cols="50" type="text" name="note"></textarea>
         <button>Log Notes</button>
-        <table>
+        <table id="notes">
+          <thead>
             <tr>
                 <th>Staff Member</th>
                 <th>Note</th>
                 <th>Date</th>
             </tr>
-            <tr>
-                <!--dummy data; TO DELETE-->
-                <td>Ellen</td>
-                <td>Nemo swam well today</td>
-                <td>8/14/18 3:00 PM</td>
-            </tr>
+          </thead>
         </table>
     </div>
 
