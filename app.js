@@ -66,6 +66,7 @@ app.post('/register', urlencodedParser, function(req, res){
 
   req.checkBody("email", 'Invalid email address.').isEmail();
   req.checkBody('username', 'Username cannot be empty').notEmpty();
+  req.checkBody('password', 'password must be at least 8 characters').isLength({ min: 8, max:20 });
   req.checkBody("password", 'Password cannot be empty.').notEmpty();
   req.checkBody("password2", 'Passwords entered do not match!').equals(password);
 
