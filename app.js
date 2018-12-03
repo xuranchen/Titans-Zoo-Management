@@ -223,18 +223,7 @@ app.post("/log_Show/:query", urlencodedParser,  function(req, res) {
       res.redirect(req.get('referer'));
     } else if (response == 0) {
       console.log("logging success");
-      res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
-    } else if (response == 1) {
-      console.log("logging attempt failed")
-      res.redirect(req.get('referer'));
-    }
-  });
-  mysql.logShow1(con, visitor, currentExhibit, currentDate, name, dateTime, function(response, err) {
-    if (err) {
-      res.redirect(req.get('referer'));
-    } else if (response == 0) {
-      console.log("logging success");
-      res.sendFile(path.join(__dirname,'./html/exhibit-detail.html'));
+      res.sendFile(path.join(__dirname,'./html/search-shows.html'));
     } else if (response == 1) {
       console.log("logging attempt failed")
       res.redirect(req.get('referer'));

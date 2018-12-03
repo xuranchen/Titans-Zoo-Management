@@ -133,7 +133,7 @@ exports.logShow = function(con, currentUser, currentExhibit, currentDate, name, 
   console.log("attempting to log a visit and a show")
   console.log(currentDate + dateTime);
   var log_query = "INSERT INTO Exhibit_Visits (Visitor, Name, DateTime) VALUES ('" + currentUser + "', '" + currentExhibit + "', '" + currentDate + "');"
-  var log_query1 = "INSERT INTO Show_Visits (Name, DateTime, Visitor) VALUES ('" + name + "', '" +  + "', '" + dateTime + "', '" + currentUser + "');"
+  var log_query1 = "INSERT INTO Show_Visits (Name, DateTime, Visitor) VALUES ('" + name + "', '" + dateTime + "', '" + currentUser + "');"
   console.log(log_query)
   console.log(log_query1)
 
@@ -144,16 +144,6 @@ exports.logShow = function(con, currentUser, currentExhibit, currentDate, name, 
       return callback(0);
     }
   });
-}
-
-exports.logShow1 = function(con, currentUser, currentExhibit, currentDate, name, dateTime, callback) {
-  console.log("attempting to log a visit and a show")
-  console.log(currentDate, dateTime);
-  var log_query = "INSERT INTO Exhibit_Visits (Visitor, Name, DateTime) VALUES ('" + currentUser + "', '" + currentExhibit + "', '" + currentDate + "');"
-  var log_query1 = "INSERT INTO Show_Visits (Name, DateTime, Visitor) VALUES ('" + name + "', '" +  + "', '" + dateTime + "', '" + currentUser + "');"
-  console.log(log_query)
-  console.log(log_query1)
-
   con.query(log_query1, function (err, result) {
     if (err){
       return callback(1);
@@ -162,7 +152,6 @@ exports.logShow1 = function(con, currentUser, currentExhibit, currentDate, name,
     }
   });
 }
-
 exports.addShow = function(con, name, exhibit, staff, dateTime , callback) {
   console.log("attempting to add")
   var checker_query = "SELECT * FROM Animal_Show WHERE Host ='" + staff + "' AND DateTime = '" + dateTime + "'";
