@@ -211,7 +211,7 @@ app.post("/log_Care/:query", urlencodedParser,  function(req, res) {
   params = params.split(",");
   var dateTime = params[0];
   var note = params[1];
-  
+
   console.log(currentUser);
   console.log(currAnimal);
   console.log(currSpecies);
@@ -520,9 +520,9 @@ app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   if (min != '' && max != '') {
     query = query + "WHERE Age BETWEEN '" + min + "' AND '"+max+"' "
   } else if (min != '') {
-    query = query + "WHERE Age <= '" + max +"' "
+    query = query + "WHERE Age >= '" + min +"' "
   } else if (max != '') {
-    query = query + "WHERE Age >= '" + min + "' "
+    query = query + "WHERE Age <= '" + max + "' "
   } else {
     query = query + "WHERE TRUE "
   }
