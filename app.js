@@ -203,6 +203,34 @@ app.post("/log_visit/:query", urlencodedParser,  function(req, res) {
 });
 
 
+app.post("/log_Care/:query", urlencodedParser,  function(req, res) {
+  var currentUser = cur_user;
+  var currAnimal = cur_animal_detail;
+  var currSpecies = cur_animal_species;
+  var params = req.params.query;
+  params = params.split(",");
+  var dateTime = params[0];
+  var note = params[1];
+  
+  console.log(currentUser);
+  console.log(currAnimal);
+  console.log(currSpecies);
+  console.log(dateTime);
+  console.log(note);
+  mysql.logCare(con, currentUser, currAnimal, currSpecies, dateTime, note,  function(response, err) {
+    if (err) {
+      res.redirect(req.get('referer'));
+    } else if (response == 0) {
+      console.log("logging care success");
+      res.sendFile(path.join(__dirname,'./html/animal-detail.html'));
+    } else if (response == 1) {
+      console.log("logging care attempt failed")
+      res.redirect(req.get('referer'));
+    }
+  });
+});
+
+
 app.post("/log_Show/:query", urlencodedParser,  function(req, res) {
   console.log("Log Show Request Received");
   var params = req.params.query.split(",");

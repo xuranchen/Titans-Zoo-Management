@@ -128,6 +128,19 @@ exports.logVisit = function(con, currentUser, currentExhibit, date, callback) {
   });
 }
 
+exports.logCare = function(con, currentUser, currentAnimal, currentSpecies, date, notes, callback) {
+  console.log("attempting to log care")
+  var log_query = "INSERT INTO Animal_Care (DateTime, Staff, Animal, Species, Text) VALUES ('" + date + "', '" + currentUser + "', '" + currentAnimal +  "', '" + currentSpecies +  "', '" + notes + "');"
+  console.log(log_query)
+  con.query(log_query, function (err, result) {
+    if (err){
+      return callback(1);
+    } else {
+      return callback(0);
+    }
+  });
+}
+
 
 exports.logShow = function(con, currentUser, currentExhibit, currentDate, name, dateTime, callback) {
   console.log("attempting to log a visit and a show")
