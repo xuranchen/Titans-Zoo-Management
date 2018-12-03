@@ -18,6 +18,7 @@ var con;
 var cur_user = null;
 var cur_exhibit_detail = null;
 var cur_animal_detail = null;
+var cur_animal_species = null;
 
 while (con == null){
   console.log('attempting sql connection')
@@ -231,13 +232,17 @@ app.post("/log_Show/:query", urlencodedParser,  function(req, res) {
 });
 
 app.get("/animal_detail/:query", urlencodedParser,  function(req, res) {
-  cur_animal_detail = req.params.query;
+  var params = req.params.query.split(",");
+  cur_animal_detail = params[0];
+  cur_animal_species = params[1];
   console.log(cur_animal_detail);
   res.sendFile(path.join(__dirname,'./html/animal-detail.html'));
 });
 
 app.get("/animal_care/:query", urlencodedParser,  function(req, res) {
-  cur_animal_detail = req.params.query;
+  var params = req.params.query.split(",");
+  cur_animal_detail = params[0];
+  cur_animal_species = params[1];
   console.log(cur_animal_detail);
   res.sendFile(path.join(__dirname,'./html/animal-care.html'));
 });
@@ -252,7 +257,7 @@ app.get("/pull_exhibit_detail", urlencodedParser,  function(req, res) {
 });
 
 app.get("/pull_animal_detail", urlencodedParser,  function(req, res) {
-  con.query("SELECT * FROM Animal WHERE Name = '" + cur_animal_detail + "'", function(err,rows) {
+  con.query("SELECT * FROM Animal WHERE Name = '" + cur_animal_detail + "' AND Species = '" + cur_animal_species + "'", function(err,rows) {
       if (err) throw err;
       console.log('Data received from Db:\n');
       console.log(rows);
@@ -260,6 +265,14 @@ app.get("/pull_animal_detail", urlencodedParser,  function(req, res) {
   });
 });
 
+app.get("/pull_animal_notes", urlencodedParser,  function(req, res) {
+  con.query("SELECT Staff, DateTime, Text FROM Animal_Care WHERE Animal = '" + cur_animal_detail + "' AND Species = '" + cur_animal_species + "'", function(err,rows) {
+      if (err) throw err;
+      console.log('Data received from Db:\n');
+      console.log(rows);
+      res.json(rows)
+  });
+});
 
 app.get("/pull_exhibit_detail_animals", urlencodedParser,  function(req, res) {
     con.query("SELECT Name, Species FROM Animal WHERE Exhibit = '" + cur_exhibit_detail + "'", function(err,rows) {

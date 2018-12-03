@@ -19,7 +19,7 @@
                 // add visitors to table
                 var table = $("#animalList thead");
                 data.forEach((d) => {
-                    table.after("<tr><td><form action = '/animal_care/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+                    table.after("<tr><td><form action = '/animal_care/" + d.Name + "," + d.Species + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
                 });
 
             });
@@ -43,7 +43,7 @@
             var table = $("#animalList thead");
             data.forEach((d) => {
                 console.log("d:", d);
-                table.after("<tr><td><form action = '/animal_care/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+                table.after("<tr><td><form action = '/animal_care/" + d.Name + "," + d.Species + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
             });
           });
         }
@@ -67,7 +67,7 @@
                     $("#animalList tr:not(:first)").remove();
                     var table = $("#animalList thead");
                     data.forEach((d) => {
-                        table.after("<tr><td><form action = '/animal_care/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
+                        table.after("<tr><td><form action = '/animal_care/" + d.Name + "," + d.Species + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td><td>" + d.Exhibit + "</td><td>" + d.Age + "</td><td>" + types[d.Genus] + "</td></tr>");
                     });
             });
         };
