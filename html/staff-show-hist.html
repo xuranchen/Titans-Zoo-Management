@@ -17,6 +17,28 @@
                 });
             })
         });
+
+        function sortStaffShows(theButton) {
+          var column = theButton.name;
+          var order = theButton.value;
+
+          if (order == "DESC") {
+            theButton.value = "ASC";
+          } else {
+            theButton.value = "DESC";
+          }
+          var url= '/sort_staff_shows?column=' + column + '&order=' + order;
+          $.get(url, function(data, status){
+            res = data;
+            console.log(data);
+            // add visitors to table
+            $("#staff-shows tr:not(:first)").remove();
+            var table = $("#staff-shows thead");
+            data.forEach((d) => {
+                table.after("<tr><td>" + d.Name + "</td><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
+            });
+          });
+        }
     </script>
 </head>
 <body>
@@ -26,9 +48,9 @@
         <table id="staff-shows">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Exhibit</th>
+                  <th><button name="Name" value="DESC" onclick="return sortStaffShows(this)">Name</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                  <th><button name="DateTime" value="DESC" onclick="return sortStaffShows(this)">Date</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
+                  <th><button name="Exhibit" value="DESC" onclick="return sortStaffShows(this)">Exhibit</button><div class="arrow-up"></div><div class="arrow-down"></div></th>
                 </tr>
             </thead>
         </table>

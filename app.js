@@ -702,6 +702,18 @@ app.get("/pull_staff_shows", urlencodedParser, function(req, res) {
     });
 });
 
+app.get("/sort_staff_shows", urlencodedParser,  function(req, res) {
+    var column = req.query.column;
+    var order = req.query.order;
+    console.log(column + order);
+    con.query('SELECT Name, DateTime, Exhibit FROM Animal_Show WHERE Host = "' + cur_user + '" ORDER BY ' + column + ' ' + order, function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows);
+    });
+});
+
 app.get("/sort_all_shows", urlencodedParser,  function(req, res) {
     var column = req.query.column;
     var order = req.query.order;

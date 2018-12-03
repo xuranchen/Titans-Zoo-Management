@@ -12,7 +12,7 @@
 
             var table = $("#exhibitHistory thead");
             data.forEach((d) => {
-                table.after("<tr><td>" + d.Name + "</td><td>" + formatDate(d.DateTime) + "</td><td>" + d.NumVisits + "</td></tr>");
+                table.after("<tr><td><form action = '/exhibit_detail/" + d.Name + "' method = 'get'><button>" + d.Name + "</button></form></td><td>" + formatDate(d.DateTime) + "</td><td>" + d.NumVisits + "</td></tr>");
             });
 
         });
@@ -33,7 +33,7 @@
                     var table = $("#exhibitHistory thead");
 
                     data.forEach((d) => {
-                        table.after("<tr><td>" + d.Name + "</td><td>" + formatDate(d.DateTime) + "</td><td>" + d.NumVisits + "</td></tr>");
+                        table.after("<tr><td><form action = '/exhibit_detail/" + d.Name + "' method = 'get'><button>" + d.Name + "</button></form></td><td>" + formatDate(d.DateTime) + "</td><td>" + d.NumVisits + "</td></tr>");
                     });
             });
         };
