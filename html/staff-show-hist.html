@@ -13,7 +13,7 @@
                 console.log(data);
                 var table = $("#staff-shows thead");
                 data.forEach((d) => {
-                    table.after("<tr><td>" + d.Name + "</td><td>" + d.DateTime + "</td><td>" + d.Exhibit + "</td></tr>");
+                    table.after("<tr><td>" + d.Name + "</td><td>" + formatDate(d.DateTime) + "</td><td>" + d.Exhibit + "</td></tr>");
                 });
             })
         });
