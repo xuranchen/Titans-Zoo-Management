@@ -47,6 +47,10 @@
             var currentDate = moment().format('YYYY-MM-DD hh:mm');
             console.log(currentDate);
             console.log(dateTime)
+            if (dateTime > currentDate) {
+                console.log("Can't log since this is in the future")
+            }
+            else {
             var showExhibit = document.getElementById("showExhibit").value;
             $.post("/log_Show/" +  name + "," + dateTime + "," + currentDate + "," + showExhibit)
                 .done(function(data, status) {
@@ -57,6 +61,7 @@
                     // $("#visitors tr").remove();
                     location.reload();
             });
+        }
             
       }
     </script>

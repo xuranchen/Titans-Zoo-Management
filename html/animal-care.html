@@ -35,15 +35,16 @@
 
                 console.log(dateTime);
                 var notes = document.getElementById("notes").value;
-            $.post("/log_Care/" + dateTime + "," +  notes)
+                    $.post("/log_Care/" + dateTime + "," +  notes)
                 .done(function(data, status) { 
                     // alert(JSON.stringify(data));
                     res = data;
-                    console.log(data);
+                    // console.log(data);
+                    console.log("status" + status);
                     // add visitors to table
                     // $("#visitors tr").remove();
                     location.reload();
-            });
+                });
             
       }
       function formatDate(date) {
