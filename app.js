@@ -405,7 +405,7 @@ app.post("/exhibit_results/:query", urlencodedParser, function(req, res) {
 });
 
 app.get("/pull_exhibit_history", urlencodedParser,  function(req, res) {
-    con.query("SELECT *, Count(*) as \"NumVisits\" FROM Exhibit_Visits WHERE Visitor = '" + cur_user + "' GROUP BY Name", function(err,rows) {
+    con.query('SELECT A.Visitor, A.Name, A.DateTime, B.NumVisits FROM Exhibit_Visits as A INNER JOIN (SELECT Name, count(Name) as NumVisits FROM Exhibit_Visits WHERE Visitor = "' + cur_user + '" GROUP BY Name) B ON A.Name = B.Name WHERE A.Visitor = "' + cur_user + '"', function(err,rows) {
         if (err) throw err;
         console.log('Data received from Db:\n');
         console.log(rows);
