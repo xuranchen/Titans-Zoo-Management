@@ -635,22 +635,22 @@ app.get("/view_shows", urlencodedParser,  function(req, res) {
     res.sendFile(path.join(__dirname,'./html/show-hist.html'));
 });
 
-app.get("/pull_shows/", urlencodedParser,  function(req, res) {
-  console.log("Show pull Request Received");
-  console.log(req.body);
-  var name = req.body.name;
-  var exhibit = req.body.exhibit;
-  var date = req.body.date;
-  console.log(name);
-  console.log(exhibit);
-  console.log(date);
-  con.query('SELECT Username, Email FROM User WHERE UserType = "1" AND Username = ? AND ', [name, exhibit, date] , function(err,rows) {
-      if (err) throw err;
-      console.log('Data received from Db:\n');
-      console.log(rows);
-      res.json(rows);
-  });
-});
+// app.get("/pull_shows/", urlencodedParser,  function(req, res) {
+//   console.log("Show pull Request Received");
+//   console.log(req.body);
+//   var name = req.body.name;
+//   var exhibit = req.body.exhibit;
+//   var date = req.body.date;
+//   console.log(name);
+//   console.log(exhibit);
+//   console.log(date);
+//   con.query('SELECT Username, Email FROM User WHERE UserType = "1" AND Username = ? AND ', [name, exhibit, date] , function(err,rows) {
+//       if (err) throw err;
+//       console.log('Data received from Db:\n');
+//       console.log(rows);
+//       res.json(rows);
+//   });
+// });
 
 app.get("/pull_staff_shows", urlencodedParser, function(req, res) {
     console.log("Staff show history Request Received");
