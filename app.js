@@ -211,7 +211,7 @@ app.post("/log_Care/:query", urlencodedParser,  function(req, res) {
   params = params.split(",");
   var dateTime = params[0];
   var note = params[1];
-  
+
   console.log(currentUser);
   console.log(currAnimal);
   console.log(currSpecies);
@@ -308,6 +308,17 @@ app.get("/pull_exhibit_detail_animals", urlencodedParser,  function(req, res) {
         console.log('Data received from Db:\n');
         console.log(rows);
         res.json(rows)
+    });
+});
+
+app.get("/sort_exhibit_detail", urlencodedParser,  function(req, res) {
+    var column = req.query.column;
+    var order = req.query.order;
+    con.query("SELECT Name, Species FROM Animal WHERE Exhibit = '" + cur_exhibit_detail + "' ORDER BY " + column + " " + order, function(err,rows) {
+        if (err) throw err;
+        console.log('Data received from Db:\n');
+        console.log(rows);
+        res.json(rows);
     });
 });
 
@@ -520,9 +531,9 @@ app.post("/search_animals/:query", urlencodedParser,  function(req, res) {
   if (min != '' && max != '') {
     query = query + "WHERE Age BETWEEN '" + min + "' AND '"+max+"' "
   } else if (min != '') {
-    query = query + "WHERE Age <= '" + max +"' "
+    query = query + "WHERE Age >= '" + min +"' "
   } else if (max != '') {
-    query = query + "WHERE Age >= '" + min + "' "
+    query = query + "WHERE Age <= '" + max + "' "
   } else {
     query = query + "WHERE TRUE "
   }
