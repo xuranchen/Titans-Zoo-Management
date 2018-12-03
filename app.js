@@ -138,7 +138,7 @@ app.post('/add_show', urlencodedParser, function(req, res){
   var name = req.body.name;
   var exhibit = req.body.exhibitSelect;
   var staff = req.body.staffSelect;
-  var dateTime = new Date(req.body.date + " " +req.body.time);
+  var dateTime = new Date(req.body.date + " " +req.body.time).toISOString().slice(0, 19).replace('T', ' ');
 
   console.log(dateTime + typeof dateTime);
 
