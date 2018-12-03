@@ -26,7 +26,7 @@
 
               var table = $("#exhibitAnimals thead");
               data.forEach((d) => {
-                  table.after("<tr><td><form action = '/animal_detail/" + d.Name + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td></tr>");
+                  table.after("<tr><td><form action = '/animal_detail/" + d.Name + "," + d.Species + "' method = 'get'><button>" + d.Name+ "</button></form></td><td>" + d.Species + "</td></tr>");
               });
 
           });
