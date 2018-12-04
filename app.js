@@ -447,7 +447,7 @@ app.post("/show_history/:query", urlencodedParser,  function(req, res) {
   var exhibit = params[1];
   var date = params[2];
 
-  var query = "SELECT Show_Visits.Name, Show_Visits.DateTime, Exhibit FROM Show_Visits INNER JOIN Animal_Show ON Show_Visits.Name = Animal_Show.Name WHERE Visitor = '" + cur_user + "'";
+  var query = "SELECT DISTINCT Show_Visits.Name, Show_Visits.DateTime, Exhibit FROM Show_Visits INNER JOIN Animal_Show ON Show_Visits.Name = Animal_Show.Name WHERE Visitor = '" + cur_user + "'";
   if (name != '') {
     query = query + " AND Show_Visits.Name = '" + name + "' "
   }
